@@ -32,9 +32,10 @@ User.prototype.addUser = function(callback) {
 
 }
 
-User.getUser = function(callback) {
-    db.query('SELECT email, password, first_name, last_name, dob, gender, user_id from Users WHERE user_id = ?', {replacements: [this.user_id]})
-        .then(function(user_id) {
+User.getUser = function(id, callback) {
+    db.query('SELECT email, password, first_name, last_name, dob, gender, user_id from Users WHERE user_id = ?', {replacements: [id]})
+        .then(function(res) {
+            console.log(res);
             callback(null, res);
         }).catch(function(err) {
             callback(new Error(err));
@@ -42,7 +43,7 @@ User.getUser = function(callback) {
 }
 
 User.getUserCredential = function(email, password, callback) {
-    db.query('SELECT email, password FROM Users WHERE email = ?', 
+    db.query('SELECT user_id FROM Users WHERE email = ? AND password = ?', 
             {replacements: [email, password]})
     .then(function(res) {
         console.log(res);

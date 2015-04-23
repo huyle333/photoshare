@@ -17,20 +17,23 @@ module.exports = function(passport) {
     },
     function(req, email, password, done) {
         var response = User.getUserCredential(email, password, function(err, res) {
-            console.log(res);
-            if (err) {
-                return done(err);
-            }
-            if (!res) {
-                return done(null, false);
-            }
-            if (res) {
-                return done(null, res);
-            }
+            console.log(res[0][0].user_id);
+            User.getUser(res[0][0].user_id, function(err, user) {
+                console.log(user);
+                if (err) {
+                    return done(err);
+                }
+                if (!user) {
+                    return done(null, false);
+                }
+                if (user) {
+                    return done(null, user);
+                }
+            })
         });
 
     })
-            );
+    );
 }
 
 
