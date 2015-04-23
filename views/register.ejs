@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+  </head>
+  <body>
+    <div class ="container">
+    	<form class="form-signin" method="POST">
+        	<h2 class="form-signin-heading">Sign up</h2>
+        	<label for="username" class="sr-only">Username</label>
+        	<input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
+        	<label for="password" class="sr-only">Password</label>
+        	<input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+          <label for="firstName" class="sr-only">First Name</label>
+          <input type="text" id="firstName" name="firstName" class="form-control" placeholder="First Name" required>
+          <label for="lastName" class="sr-only">Last Name</label>
+          <input type="text" id="lastName" name="lastName" class="form-control" placeholder="Last Name" required>
+          <label for="email" class="sr-only">Email Address</label>
+          <input type="email" id="email" name="email" class="form-control" placeholder="Email Address" required>
+          <label for="dob" class="sr-only">Date of Birth</label>
+          <input type="text" id="dob" name="dob" class="form-control" placeholder="Date of Birth" required>
+          <label for="gender" class="sr-only">Gender</label>
+          <input type="text" id="gender" name="gender" class="form-control" placeholder="Gender" required>
+          <label for="city" class="sr-only">City</label>
+          <input type="text" id="city" name="city" class="form-control" placeholder="City" required>
+          <label for="state" class="sr-only">State</label>
+          <input type="text" id="state" name="state" class="form-control" placeholder="State" required>
+          <label for="country" class="sr-only">Country</label>
+          <input type="text" id="country" name="country" class="form-control" placeholder="Country" required>
+          <label for="education" class="sr-only">Education</label>
+          <input type="text" id="education" name="education" class="form-control" placeholder="Education" required>
+        	<button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+      	</form>
+
+    </div>
+  </body>
+</html>

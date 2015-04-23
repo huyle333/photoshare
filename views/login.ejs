@@ -9,15 +9,17 @@
     <div class ="container">
     	<form class="form-signin" method="POST">
         	<h2 class="form-signin-heading">Sign in</h2>
-        	<label for="email" class="sr-only">Email address</label>
-        	<input type="email" id="email" name="email" class="form-control" placeholder="Email address" required autofocus>
-        	<br>
+        	<label for="email" class="sr-only">Email Address</label>
+        	<input type="email" id="email" name="email" class="form-control" placeholder="Email Address" required autofocus>
         	<label for="password" class="sr-only">Password</label>
         	<input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
         	<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
       	</form>
 
-      	<a href="">Register</a>
+      	<div class="form-signin">
+      		<h2>New user</h2>
+      		<a class="btn btn-lg btn-success btn-block" href="/register">Register</a>
+      	</div>
     </div>
   </body>
 </html>
