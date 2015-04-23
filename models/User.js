@@ -35,9 +35,10 @@ User.getUser = function() {
 User.getUserCredential = function(email, password, callback) {
     db.query('SELECT email, password FROM Users WHERE email = ?', 
             {replacements: [email, password]})
-    .then(function(response) {
-        callback(response);
-    }).catch(function(err) {
+    .then(function(res) {
+        console.log(res);
+        callback(null, res);
+    }).catch(function(err, err) {
         callback(new Error(err));
     });
 }
