@@ -18,6 +18,7 @@ module.exports = function(passport) {
     },
     function(req, email, password, done) {
         User.getUserCredential(email, password, function(err, user) {
+            console.log(user);
             if (err) {
                 return done(err);
             }

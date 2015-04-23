@@ -20,6 +20,12 @@ User.prototype.getId = function() {
         }
 }
 
+User.prototype.addUser = function() {
+    var query = db.query('INSERT INTO Users (username, password, email, first_name, last_name, dob, gender) VALUES (uname, passwd, emails, fname, lname, dateofbirth, genders)', 
+            {replacements: [uname: this.username, passwd: this.password, emails: this.email, fname: this.fname, lname: this.lname, dateofbirth: this.dob, genders: this.gender ]});
+    return query;
+}
+
 User.getUser = function() {
     db.query('SELECT username, password, email, fname, lname, dob, gender, location, id from Users WHERE id = ?', {replacements: [this.user_id]})
         .then(function(uid)) {
@@ -34,8 +40,4 @@ User.getUserCredential = function(email, password) {
         }
 }
 
-User.prototype.addUser = function() {
-    var query = db.query('INSERT INTO Users (username, password, email, first_name, last_name, dob, gender) VALUES (uname, passwd, emails, fname, lname, dateofbirth, genders)', 
-            {replacements: [uname: this.username, passwd: this.password, emails: this.email, fname: this.fname, lname: this.lname, dateofbirth: this.dob, genders: this.gender ]});
-    return query;
-}
+module.exports = User;
