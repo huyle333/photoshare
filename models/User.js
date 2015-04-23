@@ -10,8 +10,7 @@ function User(data) {
     this.dob = data.dob;
     this.gender = data.gender;
     this.location = data.location;
-    this._user_id = data.id;
-    this._token = data.token;
+    this.user_id = data.id;
 }
 
 User.prototype.getId = function() {
@@ -26,3 +25,19 @@ User.prototype.addUser = function() {
             {replacements: [uname: this.username, passwd: this.password, emails: this.email, fname: this.fname, lname: this.lname, dateofbirth: this.dob, genders: this.gender ]});
     return query;
 }
+
+User.getUser = function() {
+    db.query('SELECT username, password, email, fname, lname, dob, gender, location, id from Users WHERE id = ?', {replacements: [this.user_id]})
+        .then(function(uid)) {
+            return uid;
+        }
+}
+User.getUserCredential = function(email, password) {
+    db.query('SELECT email, password WHERE id = ?', 
+            {replacements: [email, password]})
+        .then(function(uid)) {
+            return uid;
+        }
+}
+
+module.exports = User;
