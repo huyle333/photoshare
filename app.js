@@ -3,15 +3,16 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
 var session = require('express-session');
+var bodyParser = require('body-parser');
 var flash = require('connect-flash');
 var passport = require('passport');
 
-var routes = require('./routes/index');
+var initPassport = require('./config/passport.js');
+initPassport(passport);
+
+var routes = require('./routes/index')(passport);
 var users = require('./routes/users');
-var login = require('./routes/login');
-var register = require('./routes/register');
 
 var app = express();
 
@@ -22,20 +23,22 @@ app.set('view engine', 'ejs');
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
-app.use(express.session({ secret: "test123test123test123"}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cookieParser());
+app.use(session({ secret: "test123test123test123",
+                          resave: true,
+                          saveUninitialized: true
+}));
 
 app.use(passport.initialize());
 app.use(passport.session());
+
 app.use(flash());
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/login', login);
-app.use('/register', register);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

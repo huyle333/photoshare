@@ -1,13 +1,12 @@
 var LocalStrategy   = require('passport-local').Strategy;
-
 var User            = require('../models/User');
 
 module.exports = function(passport) {
-    passport.seralizeUser(function(user, done)) {
+    passport.serializeUser(function(user, done) {
         done(null, user);
     });
 
-    passport.deseralizeUser(function(user, done)) {
+    passport.deserializeUser(function(user, done) {
         done(null, user);
     });
 
