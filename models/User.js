@@ -32,10 +32,14 @@ User.getUser = function() {
             return uid;
         });
 }
-User.getUserCredential = function(email, password) {
-    var query = db.query('SELECT email, password FROM Users WHERE email = ?', 
-            {replacements: [email, password]});
-    return query;
+User.getUserCredential = function(email, password,callback) {
+    db.query('SELECT email, password FROM Users WHERE email = ?', 
+            {replacements: [email, password]})
+    .then(function(response) {
+        callback(response)
+    }).catch(function(err) {
+        callback(new Error(err));
+    });
 }
 
 module.exports = User;

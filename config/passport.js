@@ -16,18 +16,21 @@ module.exports = function(passport) {
         passReqToCallback : true // allows us to pass back the entire request to the callback
     },
     function(req, email, password, done) {
-        User.getUserCredential(email, password, function(err, user) {
-            console.log(user);
+        var response = User.getUserCredential(email, password, function(err, res) {
+            console.log(res);
             if (err) {
                 return done(err);
             }
-            if (!user) {
+            if (!res) {
                 return done(null, false);
             }
-            return done(null, user);
-
+            if (res) {
+                return done(null, res);
+            }
         });
-    }));
+
+    })
+            );
 }
 
 

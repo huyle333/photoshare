@@ -6,15 +6,10 @@ var Sequelize   = require("sequelize");
 var env         = process.env.NODE_ENV || "development";
 var config      = require("../config");
 var sequelize   = new Sequelize(
-        /*config.db.name, 
+        config.db.name, 
         config.db.username, 
         config.db.password,
         config.db.env
-        */
-        'huyle333',
-        'huyle333',
-        'hello_world',
-        {dialect:'postgres', port: '5432'}
         );
 
 function db() {}
