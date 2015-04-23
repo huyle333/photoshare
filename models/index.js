@@ -12,24 +12,20 @@ var sequelize   = new Sequelize(
         config.db.env
         );
 
-var db      = {};
+function db() {}
 
-fs
-    .readdirSync(__dirname)
-    .filter(function(file) {
-        return(file.indexOf(".") !== 0) && (file != "index.js");
-    })
-    .forEach(function(file) {
-        var model = sequelize["import"](path.join(__dirname, file));
-        db[model.name] = model;
-    });
-Object.keys(db).forEach(function(modelName) {
-    if ("associate" in db[modelName]) {
-        db[modelName].associate(db);
+db.query = function(query, params) {
+    var query = sequelize.query(query, params);
+    return query;
+}
+
+db.chain = function(queries) {
+    var chain = new Sequelize.Utils.QueryChainer();
+    for (q in queries) {
+        chain.add(sequelize.query(queries[q].string, queries[q].rep));
     }
-});
-
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+    return chain;
+}
 
 module.exports = db;
+
