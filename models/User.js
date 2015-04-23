@@ -10,12 +10,25 @@ function User(data) {
     this.dob = data.dob;
     this.gender = data.gender;
     this.location = data.location;
-    this._user_id = data.id;
-    this._token = data.token;
+    this.user_id = data.id;
 }
 
 User.prototype.getId = function() {
     db.query('SELECT user_id from Users WHERE username = ', this.username)
+        .then(function(uid)) {
+            return uid;
+        }
+}
+
+User.getUser = function() {
+    db.query('SELECT username, password, email, fname, lname, dob, gender, location, id from Users WHERE id = ?', {replacements: [this.user_id]})
+        .then(function(uid)) {
+            return uid;
+        }
+}
+User.getUserCredential = function(email, password) {
+    db.query('SELECT email, password WHERE id = ?', 
+            {replacements: [email, password]})
         .then(function(uid)) {
             return uid;
         }
