@@ -1,9 +1,19 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('register', { title: 'Register' });
-});
+module.exports = function(passport){
+	/* GET register page. */
+	router.get('/', function(req, res, next) {
+	  res.render('register', { title: 'Register' });
+	});
 
-module.exports = router;
+	router.get('/', passport.authenticate('register', {
+		successRedirect: '/home',
+		failureRedirect: '/signup',
+		failureFlash: true
+	}));
+
+	return router;
+}
+
+// module.exports = router;
