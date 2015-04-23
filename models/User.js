@@ -12,23 +12,32 @@ function User(data) {
     this.user_id = data.user_id;
 }
 
-User.prototype.getId = function() {
+User.prototype.getId = function(callback) {
     db.query('SELECT user_id from Users WHERE email = ', this.email)
         .then(function(user_id) {
-            return user_id;
+            callback(null, res);
+        }).catch(function(err) {
+            callback(new Error(err));
         });
 }
 
-User.prototype.addUser = function() {
-    var query = db.query('INSERT INTO Users (email, password, first_name, last_name, dob, gender) VALUES (?, ?, ?, ?, to_date(?, \'MM DD YYYY\'), ?)', 
-            {replacements: [this.email, this.password, this.first_name, this.last_name, this.dob, this.gender ], type:'INSERT'});
-    return query;
+User.prototype.addUser = function(callback) {
+    db.query('INSERT INTO Users (email, password, first_name, last_name, dob, gender) VALUES (?, ?, ?, ?, to_date(?, \'MM DD YYYY\'), ?)', 
+            {replacements: [this.email, this.password, this.first_name, this.last_name, this.dob, this.gender ], type:'INSERT'})
+    .then(function(res) {
+        callback(null, res);
+    }).catch(function(err) {
+        callback(new Error(err));
+    });
+
 }
 
-User.getUser = function() {
+User.getUser = function(callback) {
     db.query('SELECT email, password, first_name, last_name, dob, gender, user_id from Users WHERE user_id = ?', {replacements: [this.user_id]})
         .then(function(user_id) {
-            return user_id;
+            callback(null, res);
+        }).catch(function(err) {
+            callback(new Error(err));
         });
 }
 
@@ -38,7 +47,7 @@ User.getUserCredential = function(email, password, callback) {
     .then(function(res) {
         console.log(res);
         callback(null, res);
-    }).catch(function(err, err) {
+    }).catch(function(err) {
         callback(new Error(err));
     });
 }
