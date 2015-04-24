@@ -2,6 +2,8 @@
 var db = require('../models/index');
 var Sequelize = require('sequelize');
 
+var email, password, first_name, last_name, dob, gender;
+
 function User(data) {
     this.email = data.email;
     this.password = data.password;
@@ -13,6 +15,17 @@ function User(data) {
     this.user_id = data.user_id;
 }
 
+function User(email, password, first_name, last_name, dob, gender){
+    this.email = email;
+    this.password = password;
+    this.first_name = first_name;
+    this.last_name = last_name;
+    this.dob = dob;
+    this.gender = gender;
+    // this.location = data.location;
+    // this.user_id = data.user_id;
+}
+
 User.prototype.getId = function(callback) {
     db.query('SELECT user_id from Users WHERE email = ', this.email)
         .then(function(user_id) {
@@ -22,16 +35,20 @@ User.prototype.getId = function(callback) {
         });
 }
 
-User.addUser = function(email, password, first_name, last_name, dob, gender, callback) {
-    //db.query('INSERT INTO Users (email, password, first_name, last_name, dob, gender) VALUES (?, ?, ?, ?, to_date(?, \'MM DD YYYY\'), ?)', 
-            //{replacements: [email, password, first_name, last_name, dob, gender], type:'INSERT'})
-    db.query("INSERT INTO Users (email, password, first_name, last_name, dob, gender) VALUES ('huyle333', 'hello', 'Huy', 'Le', '01-14-1995', 'M')",{ raw: true})
+User.prototype.addUser = function(callback) {
+    /*
+    db.query('INSERT INTO Users (email, password, first_name, last_name, dob, gender) VALUES (?, ?, ?, ?, to_date(?, \'MM DD YYYY\'), ?)', 
+            {replacements: ['huyle333@bu.edu', 'test', 'Huy', 'Le', '01-14-1995', 'M'], type:'INSERT'})
     .then(function(res) {
         // console.log(res);
         callback(null, res);
     }).catch(function(err) {
         callback(new Error(err));
     });
+    */
+    var query = db.query('INSERT INTO Users (email, password, first_name, last_name, dob, gender) VALUES (?, ?, ?, ?, to_date(?, \'MM DD YYYY\'), ?)', 
+            {replacements: ['huyle333@bu.edu', 'test', 'Huy', 'Le', '01-14-1995', 'M'], type:'INSERT'});
+    return query;
 }
 
 User.getUser = function(id, callback) {

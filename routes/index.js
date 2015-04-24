@@ -37,7 +37,7 @@ module.exports = function(passport){
 
 	router.post('/register', passport.authenticate('local-register', {
 		successRedirect: '/home',
-		failureRedirect: '/signup',
+		failureRedirect: '/register',
 		failureFlash: true
 	}));
 
