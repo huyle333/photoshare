@@ -105,10 +105,7 @@ CREATE TABLE Pictures
 (
   picture_id int4 NOT NULL DEFAULT nextval('Pictures_picture_id_seq'),
   caption varchar(255) NOT NULL,
-  imgdata bytea NOT NULL,
-  size int4 NOT NULL,
-  content_type varchar(255) NOT NULL,
-  thumbdata bytea NOT NULL,
+  imgdata path NOT NULL,
   album int4 NOT NULL REFERENCES Album (album_id),
   CONSTRAINT pictures_pk PRIMARY KEY (picture_id)
 ); 
