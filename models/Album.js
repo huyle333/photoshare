@@ -1,6 +1,6 @@
 "use strict";
 
-var db = require('index');
+var db = require('../models/index');
 
 function Album(data, user) {
     this.album_id = data.album_id;
@@ -9,11 +9,12 @@ function Album(data, user) {
     this.album_date = data.album_date;
 }
 
-Album.prototype.create = function(callback) {
+Album.create = function(album, callback) {
+    console.log(this);
     var now = new Date();
-    db.query = ("INSERT INTO Album (name, owner, album_date) where name = ?, owner = ?, album_date = ?", 
-            {replacements: [this.name, this.owner, now]},
-            type: 'INSERT')
+    db.query("INSERT INTO Album (user_id, name, album_date) values ( ?,  ?, ?)", 
+            {replacements: [album.owner, album.name, now],
+            type: 'INSERT'})
     .then(function() {
         callback(null, album);
     });
@@ -21,5 +22,6 @@ Album.prototype.create = function(callback) {
 
 Album.remove = function() {
     db.query ("DELETE FROM Album WHERE album_id = ?", 
-            {replacements; [this.album_id], type: 'DELETE'});
+            {replacements: [this.album_id], type: 'DELETE'});
 }
+module.exports = Album;
