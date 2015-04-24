@@ -45,7 +45,7 @@ module.exports = function(passport) {
         passReqToCallback : true // allows us to pass back the entire request to the callback
     },
     function(req, email, password, first_name, last_name, dob, gender, done) {
-        var response = User.addUser(email, password, first_name, last_name, dob, gender, function(err, user) {
+        User.addUser(email, password, first_name, last_name, dob, gender, function(err, user) {
             console.log(user);
             if (err) {
                 return done(err);

@@ -1,5 +1,6 @@
 "use strict";
 var db = require('../models/index');
+var Sequelize = require('sequelize');
 
 function User(data) {
     this.email = data.email;
@@ -24,7 +25,7 @@ User.prototype.getId = function(callback) {
 User.addUser = function(email, password, first_name, last_name, dob, gender, callback) {
     //db.query('INSERT INTO Users (email, password, first_name, last_name, dob, gender) VALUES (?, ?, ?, ?, to_date(?, \'MM DD YYYY\'), ?)', 
             //{replacements: [email, password, first_name, last_name, dob, gender], type:'INSERT'})
-    db.query("INSERT INTO Users (email, password, first_name, last_name, dob, gender) VALUES ('huyle333', 'hello', 'Huy', 'Le', '01-14-1995', 'M')")
+    db.query("INSERT INTO Users (email, password, first_name, last_name, dob, gender) VALUES ('huyle333', 'hello', 'Huy', 'Le', '01-14-1995', 'M')",{ raw: true})
     .then(function(res) {
         // console.log(res);
         callback(null, res);
