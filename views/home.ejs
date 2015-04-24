@@ -11,17 +11,9 @@
 
     <div class="container">
       <ul>
-      	<li>Welcome: <%= user.user[0][0].email %></li>
+      	<li>Welcome: <%= body.user[0][0].email %></li>
+        <li><a href="/user/friends" name='friends'>View Friends</a></li>
       </ul>
-
-      <form class="form-signin" action='/friend' method="POST">
-          <h2 class="form-signin-heading">Add a Friend</h2>
-          <label for="email" class="sr-only">Email Address</label>
-          <input type="email" id="friend" name="friend" class="form-control" placeholder="Email Address" required autofocus>
-          
-          <button class="btn btn-lg btn-success btn-block" type="submit">Friend</button>
-      </form>
-    </div>
 
   </body>
 </html>
