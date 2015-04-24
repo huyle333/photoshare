@@ -19,3 +19,7 @@ Album.prototype.create = function(callback) {
     });
 }
 
+Album.remove = function() {
+    db.query ("DELETE FROM Album WHERE album_id = ?", 
+            {replacements; [this.album_id], type: 'DELETE'});
+}

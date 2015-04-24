@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var flash = require('connect-flash');
 var passport = require('passport');
 var multer = require('multer');
+var uuid = require('node-uuid');
 
 var initPassport = require('./config/passport.js');
 initPassport(passport);
@@ -35,6 +36,17 @@ app.use(session({ secret: "test123test123test123",
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(multer({ dest: './uploads/',
+    rename: uuid.v4(),
+onFileUploadStart: function (file) {
+    console.log(file.originalname + ' is starting...');
+},
+onFileUploadComplete: function(file) {
+    console.log(file.fieldname + ' uploaded to ' + file.path);
+    done = true;
+}
+}));
 
 app.use(flash());
 
