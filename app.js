@@ -7,6 +7,7 @@ var session = require('express-session');
 var bodyParser = require('body-parser');
 var flash = require('connect-flash');
 var passport = require('passport');
+var multer = require('multer');
 
 var initPassport = require('./config/passport.js');
 initPassport(passport);
