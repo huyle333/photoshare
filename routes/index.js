@@ -41,6 +41,12 @@ module.exports = function(passport){
 		failureFlash: true
 	}));
 
+	router.post('/friend', passport.authenticate('local-friend', {
+		successRedirect: '/success',
+		failureRedirect: '/home',
+		failureFlash: true
+	}));
+
     return router;
 }
 

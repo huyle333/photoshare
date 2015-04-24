@@ -47,7 +47,17 @@ User.prototype.addUser = function(callback) {
     });
     */
     var query = db.query('INSERT INTO Users (email, password, first_name, last_name, dob, gender) VALUES (?, ?, ?, ?, to_date(?, \'MM DD YYYY\'), ?)', 
-            {replacements: ['huyle333@bu.edu', 'test', 'Huy', 'Le', '01-14-1995', 'M'], type:'INSERT'});
+            {replacements: [this.email, this.password, this.first_name, this.last_name, this.dob, this.gender], type:'INSERT'});
+    return query;
+}
+
+User.prototype.addFriend = function(friend_id, callback) {
+    var query = db.query('INSERT INTO Friends VALUES (?, ?)', {replacements: [this.user_id, friend_id]});
+    return query;
+}
+
+User.prototype.getFriends = function(callback) {
+    var query = db.query('SELECT u.email, u.first_name, u.last_name from Users u, Friends f where u.uid = f.friend_id and f.uid = ?', {replacements: [this.user_id]});
     return query;
 }
 

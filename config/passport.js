@@ -75,6 +75,44 @@ module.exports = function(passport) {
         */
     })
     );
+
+    passport.use('local-friend', new LocalStrategy({
+        passReqToCallback : true // allows us to pass back the entire request to the callback
+    },
+    function(req, friend_id, done) {
+        console.log(req);
+        var userData = req.body;
+        // friend_id = req.body.user_id;
+        var newUser = new User(req.body);
+        
+        newUser.addFriend(friend_id, function(err, user) {
+            if (err) {
+                console.log(err);
+                return done(err);
+            }
+            if (!user) {
+                return done(null, false);
+            }
+            if (user) {
+                return done(null, user);
+            }
+        });
+        /*
+        User.addUser(email, password, first_name, last_name, dob, gender, function(err, user) {
+            // console.log(user);
+            if (err) {
+                return done(err);
+            }
+            if (!user) {
+                return done(null, false);
+            }
+            if (user) {
+                return done(null, user);
+            }
+        });
+        */
+    })
+    );
 }
 
 

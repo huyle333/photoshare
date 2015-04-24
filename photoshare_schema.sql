@@ -158,4 +158,12 @@ VALUES
 (
     'test@bu.edu', 'test', 'test', 'test1', '11/25/1992', 'M'
 );
+INSERT INTO Users 
+(
+    email, password, first_name, last_name, dob, gender
+) 
+VALUES 
+(
+    'test2@bu.edu', 'test2', 'test2', 'test2', '01/14/1995', 'M'
+);
 
