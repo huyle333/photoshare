@@ -34,6 +34,32 @@ module.exports = function(passport) {
 
     })
     );
+
+    passport.use('local-register', new LocalStrategy({
+        usernameField : 'email',
+        passwordField : 'password',
+        firstNameField : 'first_name',
+        lastNameField : 'last_name',
+        dobField : 'dob',
+        genderField : 'gender',
+        passReqToCallback : true // allows us to pass back the entire request to the callback
+    },
+    function(req, email, password, first_name, last_name, dob, gender, done) {
+        var response = User.addUser(email, password, first_name, last_name, dob, gender, function(err, user) {
+            console.log(user);
+            if (err) {
+                return done(err);
+            }
+            if (!user) {
+                return done(null, false);
+            }
+            if (user) {
+                return done(null, user);
+            }
+        });
+
+    })
+    );
 }
 
 

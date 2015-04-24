@@ -35,7 +35,7 @@ module.exports = function(passport){
 	  res.render('register', { title: 'Register', message: req.flash('registerMessage') });
 	});
 
-	router.get('/register', passport.authenticate('register', {
+	router.post('/register', passport.authenticate('local-register', {
 		successRedirect: '/home',
 		failureRedirect: '/signup',
 		failureFlash: true

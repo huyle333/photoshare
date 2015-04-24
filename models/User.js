@@ -21,15 +21,16 @@ User.prototype.getId = function(callback) {
         });
 }
 
-User.prototype.addUser = function(callback) {
-    db.query('INSERT INTO Users (email, password, first_name, last_name, dob, gender) VALUES (?, ?, ?, ?, to_date(?, \'MM DD YYYY\'), ?)', 
-            {replacements: [this.email, this.password, this.first_name, this.last_name, this.dob, this.gender ], type:'INSERT'})
+User.addUser = function(email, password, first_name, last_name, dob, gender, callback) {
+    //db.query('INSERT INTO Users (email, password, first_name, last_name, dob, gender) VALUES (?, ?, ?, ?, to_date(?, \'MM DD YYYY\'), ?)', 
+            //{replacements: [email, password, first_name, last_name, dob, gender], type:'INSERT'})
+    db.query("INSERT INTO Users (email, password, first_name, last_name, dob, gender) VALUES ('huyle333', 'hello', 'Huy', 'Le', '01-14-1995', 'M')")
     .then(function(res) {
+        // console.log(res);
         callback(null, res);
     }).catch(function(err) {
         callback(new Error(err));
     });
-
 }
 
 User.getUser = function(id, callback) {
