@@ -15,6 +15,7 @@ initPassport(passport);
 
 var routes = require('./routes/index')(passport);
 var user = require('./routes/user');
+var album = require('./routes/album')(passport);
 
 var app = express();
 
@@ -52,6 +53,7 @@ app.use(flash());
 
 app.use('/', routes);
 app.use('/user', user);
+app.use('/album', album);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
