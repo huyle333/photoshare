@@ -4,12 +4,12 @@ var router = express.Router();
 module.exports = function(passport){
 	/* GET index page. */
 	router.get('/', function(req, res, next) {
-	  res.render('index', { title: 'Express' });
+	  res.render('index', { title: 'Flickr 2.0' });
 	});
 
 	/* GET home page. */
 	router.get('/home', isLoggedIn, function(req, res, next) {
-	  res.render('home', { user: req.user, title: 'Home' });
+	  res.render('home', { user: req.res.req, title: 'Home' });
 	});
 
 	/* GET login page. */

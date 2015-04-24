@@ -17,9 +17,9 @@ module.exports = function(passport) {
     },
     function(req, email, password, done) {
         var response = User.getUserCredential(email, password, function(err, res) {
-            console.log(res[0][0].user_id);
+            // console.log(res[0][0].user_id);
             User.getUser(res[0][0].user_id, function(err, user) {
-                console.log(user);
+                // console.log(user);
                 if (err) {
                     return done(err);
                 }
