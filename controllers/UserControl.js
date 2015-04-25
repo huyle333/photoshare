@@ -2,13 +2,15 @@ var UserModel = require('../models/User.js');
 
 var UserControl = function() {};
 
-UserControl.getUser = function(user_id, callback){
+UserControl.getUserById = function(user_id, callback){
     UserModel.getUser(user_id, function(err, res){
         if(err){
             callback(err.message, null);
+            return;
         }
         else {
             callback(null,res);
+            return;
         }
     });
 }

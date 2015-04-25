@@ -1,11 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var UserController = ('../controllers/UserControl');
+var UserController = require('../controllers/UserControl');
 
-var user = function(passport){
+var user = function(passport) {
 
 	router.post('/friend', function(req, res) {
-		console.log(req.body);
 		var friend = req.body.friend;
 		UserController.addFriend(friend, function(err, response){
 			if(!err){
@@ -30,16 +29,15 @@ var user = function(passport){
 		*/
 	});
 
-	router.get('/:user_id', (function(req, res) {
-		console.log(req.res.req.user[0][0].user_id);
+	router.get('/:user_id', function(req, res) {
 	    var user_id = req.res.req.user[0][0].user_id;
-	    UserController.getUser(req.res.req.user[0][0], user_id, function(err, user) {
+	    UserController.getUserById(user_id, function(err, user) {
 	        if(!err) {
-	            res.render('user', {user: req.res.req.user[0][0]});
+	            res.render('user', {user: req.res.req.user[0][0], title: "User"});
 	        } else {
 	            //res.redirect('/error?type=viewUser');
 	        }
-	    });
+	    })
 	    /*
 	    UserController.getByUsername(user_id, function(err, user) {
 	        if(err) {
@@ -54,7 +52,7 @@ var user = function(passport){
 	        }
 	    });
 		*/
-	}));
+	});
 
 	return router;
 }

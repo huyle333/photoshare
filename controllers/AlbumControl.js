@@ -23,4 +23,3 @@ AlbumControl.add = function(user, album, photo, callback) {
 }
 
 module.exports = AlbumControl;
-
