@@ -20,12 +20,11 @@
             <button class="btn btn-lg btn-success btn-block" type="submit">Add Album</button>
         </div>
         <div>
-            <select class="form-control" >
-                <option disabled="disabled" selected="selected" hidden="hidden">Select Album</option>
-                <% albums.forEach(function(el, i) {%>
-                <option value="<%= albums[i].id%>"><%=albums[i].name%></option>
-                <% }) %>
-            </select>
+              <ul>
+              <% albums.forEach(function(el, i) {%>
+              <li><%= albums[i].id%><%=albums[i].name%></li>
+              <% }) %>
+              </ul>
         </div>
     </div>
   </body>
