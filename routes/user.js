@@ -1,14 +1,15 @@
 var express = require('express');
 var router = express.Router();
 var UserController = require('../controllers/UserControl');
-
 var user = function(passport) {
 
-	router.post('/friend', function(req, res) {
-		var friend = req.body.friend;
-		UserController.addFriend(friend, function(err, response){
+	router.post('/:user_id/friend', function(req, res) {
+		var user_id = req.res.req.user[0][0].user_id;
+		var friend = req.params.user_id;
+		console.log(friend);
+		UserController.addFriend(user_id, friend, function(err, response){
 			if(!err){
-				res.redirect('/success');
+				res.redirect('/success', {title: "Success"});
 			}else{
 				console.log(err);
 				res.redirect('/login');
@@ -30,10 +31,12 @@ var user = function(passport) {
 	});
 
 	router.get('/:user_id', function(req, res) {
-	    var user_id = req.res.req.user[0][0].user_id;
+		// console.log(req.params);
+	    var user_id = req.params.user_id;
+	    console.log(req.params);
 	    UserController.getUserById(user_id, function(err, user) {
 	        if(!err) {
-	            res.render('user', {user: req.res.req.user[0][0], title: "User"});
+	            res.render('user', {user: user[0][0], title: "User"});
 	        } else {
 	            //res.redirect('/error?type=viewUser');
 	        }
@@ -52,6 +55,17 @@ var user = function(passport) {
 	        }
 	    });
 		*/
+	});
+
+	router.post('/friend', function(req, res){
+		var friend_id = req.res.req.friend[0][0].user_id;
+		UserController.getFriend(friend_id, function(err, user){
+			if(!err) {
+	            res.redirect('/success', {title: "Success"});
+	        } else {
+	            //res.redirect('/error?type=viewUser');
+	        }
+		});
 	});
 
 	return router;

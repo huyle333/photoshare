@@ -1,11 +1,12 @@
 var LocalStrategy   = require('passport-local').Strategy;
-var User            = require('../models/User');
+var UserModel       = require('../models/User');
 
 module.exports = function(passport) {
+    
     passport.serializeUser(function(user, done) {
         done(null, user);
     });
-
+    
     passport.deserializeUser(function(user, done) {
         done(null, user);
     });
@@ -16,9 +17,9 @@ module.exports = function(passport) {
         passReqToCallback : true // allows us to pass back the entire request to the callback
     },
     function(req, email, password, done) {
-        var response = User.getUserCredential(email, password, function(err, res) {
+        var response = UserModel.getUserCredential(email, password, function(err, res) {
             // console.log(res[0][0].user_id);
-            User.getUser(res[0][0].user_id, function(err, user) {
+            UserModel.getUser(res[0][0].user_id, function(err, user) {
                 // console.log(user);
                 if (err) {
                     return done(err);
@@ -31,7 +32,6 @@ module.exports = function(passport) {
                 }
             })
         });
-
     })
     );
 
@@ -40,12 +40,9 @@ module.exports = function(passport) {
         passwordField : 'password',
         passReqToCallback : true // allows us to pass back the entire request to the callback
     },
-    function(req, email, password, first_name, last_name, dob, gender, done) {
-        first_name = req.body.first_name;
-        last_name = req.body.last_name;
-        dob = req.body.dob;
-        gender = req.body.gender;
-        var newUser = new User(email, password, first_name, last_name, dob, gender);
+    function(req, data, done) {
+        console.log(req.body);
+        var newUser = new UserModel(req.body);
         
         newUser.addUser(function(err, user) {
             if (err) {
@@ -59,22 +56,6 @@ module.exports = function(passport) {
                 return done(null, user);
             }
         });
-        /*
-        User.addUser(email, password, first_name, last_name, dob, gender, function(err, user) {
-            // console.log(user);
-            if (err) {
-                return done(err);
-            }
-            if (!user) {
-                return done(null, false);
-            }
-            if (user) {
-                return done(null, user);
-            }
-        });
-        */
     })
     );
 }
-
-

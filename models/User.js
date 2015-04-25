@@ -2,8 +2,6 @@
 var db = require('../models/index');
 var Sequelize = require('sequelize');
 
-var email, password, first_name, last_name, dob, gender;
-
 function User(data) {
     this.email = data.email;
     this.password = data.password;
@@ -13,17 +11,6 @@ function User(data) {
     this.gender = data.gender;
     // this.location = data.location;
     this.user_id = data.user_id;
-}
-
-function User(email, password, first_name, last_name, dob, gender){
-    this.email = email;
-    this.password = password;
-    this.first_name = first_name;
-    this.last_name = last_name;
-    this.dob = dob;
-    this.gender = gender;
-    // this.location = data.location;
-    // this.user_id = data.user_id;
 }
 
 User.prototype.getId = function(callback) {
@@ -46,14 +33,24 @@ User.prototype.addUser = function(callback) {
         callback(new Error(err));
     });
     */
-    var query = db.query('INSERT INTO Users (email, password, first_name, last_name, dob, gender) VALUES (?, ?, ?, ?, to_date(?, \'MM DD YYYY\'), ?)', 
-            {replacements: [this.email, this.password, this.first_name, this.last_name, this.dob, this.gender], type:'INSERT'});
-    return query;
+    db.query('INSERT INTO Users (email, password, first_name, last_name, dob, gender) VALUES (?, ?, ?, ?, to_date(?, \'MM DD YYYY\'), ?)', 
+            {replacements: [this.email, this.password, this.first_name, this.last_name, this.dob, this.gender], type:'INSERT'})
+        .then(function(res) {
+            // console.log(res);
+            callback(null, res);
+        }).catch(function(err) {
+            callback(new Error(err));
+        });
 }
 
-User.prototype.addFriend = function(friend_id, callback) {
-    var query = db.query('INSERT INTO Friends VALUES (?, ?)', {replacements: [this.user_id, friend_id]});
-    return query;
+User.addFriend = function(user_id, friend_id, callback) {
+    // console.log(this.user_id);
+    db.query('INSERT INTO Friends VALUES (?, ?)', {replacements: [user_id, friend_id]})
+        .then(function(res) {
+            callback(null, res);
+        }).catch(function(err) {
+            callback(new Error(err));
+    });
 }
 
 User.prototype.getFriends = function(callback) {
@@ -67,7 +64,7 @@ User.getUser = function(id, callback) {
             callback(null, res);
         }).catch(function(err) {
             callback(new Error(err));
-        });
+    });
 }
 
 User.getUserCredential = function(email, password, callback) {
