@@ -9,14 +9,24 @@
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
     <div class="container">
-    </div>
-        <form class="form-signin" action="/album/" method="POST">
-        <h2 class="form-signin-heading">Create a album</h2>
-        <label for="add_album" class="sr-only">Album Name</label>
-        <input type="text" id="add_album" name="add_album" class="form-control" placeholder="Album Name" required>
-        
-        <button class="btn btn-lg btn-success btn-block" type="submit">Add Album</button>
-      	</div>
+        <div>
+
+        </div>
+        <div>
+            <form class="form-signin" action="/album/" method="POST">
+            <h2 class="form-signin-heading">Create a album</h2>
+            <label for="add_album" class="sr-only">Album Name</label>
+            <input type="text" id="add_album" name="add_album" class="form-control" placeholder="Album Name" required>
+            <button class="btn btn-lg btn-success btn-block" type="submit">Add Album</button>
+        </div>
+        <div>
+            <select class="form-control" >
+                <option disabled="disabled" selected="selected" hidden="hidden">Select Album</option>
+                <% albums.forEach(function(el, i) {%>
+                <option value="<%= albums[i].id%>"><%=albums[i].name%></option>
+                <% }) %>
+            </select>
+        </div>
     </div>
   </body>
 </html>

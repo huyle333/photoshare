@@ -9,3 +9,12 @@ PicturesControl.add = function(pic, album, callback) {
         callback(null, newPic);
     });
 }
+
+PicturesControl.getPic = function(pic_id, callback) {
+    PicturesModel.getById(pic_id, function(pi) {
+        // get tag here
+        callback(null, picture);
+    })
+}
+
+module.exports = PicturesControl;

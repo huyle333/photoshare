@@ -1,12 +1,12 @@
 "use strict";
 
-var db = require('index');
+var db = require('../models/index');
 
 function Pictures(data, album) {
     this.album_id = album.album_id;
     this.caption = data.caption;
-    this.photo = data.photo;
-    this.photo_id = data.photo_id;
+    this.picture= data.picture;
+    this.picture_id = data.picture_id;
 }
 
 Pictures.prototype.create = function(next) {
@@ -16,3 +16,15 @@ Pictures.prototype.create = function(next) {
         next();
     });
 }
+Pictures.getById = function(photo_id, callback) {
+    db.query("SELECT picture_id, caption, imgdata, album FROM Pictures WHERE picture_id = ?",
+            {replacements: [photo_id]})
+    .then(function(pic) {
+        var p = new Pictures(pic[0][0]);
+        callback(null, p);
+    }).catch(function(err) {
+        callback(new Error(err));
+    });
+}
+
+module.exports = Pictures;

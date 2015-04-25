@@ -82,4 +82,12 @@ User.getUserCredential = function(email, password, callback) {
     });
 }
 
+User.getAlbums = function(user_id, callback) {
+    db.query('SELECT album_id, name FROM Album WHERE user_id = ?', 
+            {replacements: [user_id]})
+    .then(function(res) {
+        callback(null,res);
+    });
+}
+
 module.exports = User;

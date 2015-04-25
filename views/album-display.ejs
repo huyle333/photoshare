@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= album.id%></p>
+    <div class="container">
+        <% album.forEach(function(el, i) { %>
+        <%= link_to('/pic/' + el.picture_id %>
+        <%= img_tag('/pic/' + el.picture_id %>
+        <% }) %>
+    </div>
+  </body>
+</html>
