@@ -9,9 +9,10 @@
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
     <div class="container">
-        <%= img_tag(picture.path) %>
-        <h4><%= picture.caption %> </h4>
-        <!-- impelement photo tags here -->
+        <% console.log(picture) %>
+        <img src ="/<%= picture.imgdata %>" class="img-responsive">
+        <h4>Caption: <%= picture.caption %> </h4>
+
     </div>
   </body>
 </html>

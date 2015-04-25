@@ -11,12 +11,12 @@ AlbumControl.create = function (user, album, callback) {
     });
 }
 
-AlbumControl.get = function (album_id, callback) {
-    var album = new AlbumModel({album_id: album_id});
+AlbumControl.getPictures = function (album_id, callback) {
+    var album = AlbumModel.getPictures(album_id);
 }
 
-AlbumControl.add = function(user, album, photo, callback) {
-    PicturesC.add(pic, album, function(err, res) {
+AlbumControl.add = function(album, picture, callback) {
+    PicturesC.add(picture, album, function(err, res) {
         if (err) {callback(err, null) }
         else { callback(null, res) }
     });

@@ -14,17 +14,34 @@
         </div>
         <div>
             <form class="form-signin" action="/album/" method="POST">
-            <h2 class="form-signin-heading">Create a album</h2>
-            <label for="add_album" class="sr-only">Album Name</label>
-            <input type="text" id="add_album" name="add_album" class="form-control" placeholder="Album Name" required>
-            <button class="btn btn-lg btn-success btn-block" type="submit">Add Album</button>
+                <h2 class="form-signin-heading">Create a album</h2>
+                <label for="add_album" class="sr-only">Album Name</label>
+                <input type="text" id="add_album" name="add_album" class="form-control" placeholder="Album Name" required>
+                <button class="btn btn-lg btn-success btn-block" type="submit">Add Album</button>
+            </form>
         </div>
         <div>
               <ul>
               <% albums.forEach(function(el, i) {%>
-              <li><%= albums[i].id%><%=albums[i].name%></li>
+              <li> <a href='<%= "/album/" + albums[i].album_id%>'><%=albums[i].name%></a></li>
               <% }) %>
               </ul>
+        </div>
+        <div>
+            <h3>Upload a picture</h3>
+            <form class="form-signin" action="/album/add" enctype="multipart/form-data" method="POST">
+                <select id="album" name="album" class="form-control" required>
+                    <option disabled="disabled" selected='selected' hidden='hidden'>Select Album</option>
+                    <% albums.forEach(function(el, i) { %> 
+                    <option value="<%= albums[i].album_id %>"><%=albums[i].name %></option>
+                    <% }) %>
+                </select>
+                <label for="caption" class="sr-only">Caption</label>
+                <input type="text" id="caption" name="caption" class="form-control" placeholder="Caption" required>
+                <label for="pic" class="sr-only">File</label>
+                <input type="file" id="pic" name="pic" placeholder=".jpg" required>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Upload</button>
+            </form>
         </div>
     </div>
   </body>
