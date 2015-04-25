@@ -1,6 +1,17 @@
-var UserModel = require('../models/User');
+var UserModel = require('../models/User.js');
 
-var UserControl = function () {};
+var UserControl = function() {};
+
+UserControl.getUser = function(user_id, callback){
+    UserModel.getUser(user_id, function(err, res){
+        if(err){
+            callback(err.message, null);
+        }
+        else {
+            callback(null,res);
+        }
+    });
+}
 
 UserControl.addFriend = function(friend_id, callback){
 	var User = new UserModel(user);

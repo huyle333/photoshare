@@ -57,18 +57,15 @@ User.prototype.addFriend = function(friend_id, callback) {
 }
 
 User.prototype.getFriends = function(callback) {
-    db.query('SELECT u.email, u.first_name, u.last_name from Users u, Friends f where u.uid = f.friend_id and f.uid = ?', {replacements: [this.user_id]})
-    .then(function(res) {
-        callback(null, res);
-    }).catch(function(err) {
-        callback(new Error(err));
-    });
+    var query = db.query('SELECT u.email, u.first_name, u.last_name from Users u, Friends f where u.uid = f.friend_id and f.uid = ?', {replacements: [this.user_id]});
+    return query;
 }
 
 User.getUser = function(id, callback) {
+    console.log(this);
     db.query('SELECT email, password, first_name, last_name, dob, gender, user_id from Users WHERE user_id = ?', {replacements: [id]})
         .then(function(res) {
-            // console.log(res);
+            console.log(res);
             callback(null, res);
         }).catch(function(err) {
             callback(new Error(err));

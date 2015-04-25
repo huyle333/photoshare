@@ -14,7 +14,7 @@ var initPassport = require('./config/passport.js');
 initPassport(passport);
 
 var routes = require('./routes/index')(passport);
-var user = require('./routes/user');
+var user = require('./routes/user')(passport);
 var album = require('./routes/album')(passport);
 
 var app = express();
