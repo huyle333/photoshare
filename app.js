@@ -39,15 +39,21 @@ app.use(session({ secret: "test123test123test123",
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(multer({ dest: './uploads/',
-    rename: uuid.v4(),
-onFileUploadStart: function (file) {
-    console.log(file.originalname + ' is starting...');
-},
-onFileUploadComplete: function(file) {
-    console.log(file.fieldname + ' uploaded to ' + file.path);
-    done = true;
-}
+app.use(multer({ dest: './public/uploads/',
+    rename: function(fieldname, filename) {
+        return fieldname + uuid.v4();
+    },
+    limits: {
+        fileSize: 5000000,
+        files: 1
+    },
+    onFileUploadStart: function (file) {
+        console.log(file.originalname + ' is starting...');
+    },
+    onFileUploadComplete: function(file) {
+        console.log(file.fieldname + ' uploaded to ' + file.path);
+        done = true;
+    }
 }));
 
 app.use(flash());

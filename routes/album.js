@@ -35,7 +35,7 @@ var album = function(passport) {
         });
     });
     router.get('/:albumId', function(req, res) {
-        AlbumControl.get(req.params.albumId, function(err, pictures) {
+        AlbumC.getPictures(req.params.albumId, function(err, pictures) {
             var album = {};
             album.pictures = pictures;
             res.render('album-display', {album: album});
@@ -43,7 +43,13 @@ var album = function(passport) {
     });
 
     router.post('/add', function(req, res) {
-
+        var album = {album_id: req.body.album}
+        var pic = {caption: req.body.caption, picture: req.files.pic.path.substring(7)}
+        AlbumC.add(album, pic, function(err, response) {
+            console.log(response);
+            if (err) { res.redirect('/')}
+            else { res.redirect('/pic/'+ response)}
+        });
     });
 
     return router;
