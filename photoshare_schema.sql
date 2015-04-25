@@ -128,8 +128,8 @@ CREATE TABLE PicturesTag
 DROP TABLE Friends;
 CREATE TABLE Friends
 (
-  username int4 PRIMARY KEY REFERENCES Users (user_id) ON DELETE CASCADE,
-  friend int4 REFERENCES Users (user_id) ON DELETE CASCADE
+  user_id int4 PRIMARY KEY REFERENCES Users (user_id) ON DELETE CASCADE,
+  friend_id int4 REFERENCES Users (user_id) ON DELETE CASCADE
 );
 
 DROP SEQUENCE Comment_id_seq CASCADE;

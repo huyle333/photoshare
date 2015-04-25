@@ -1,4 +1,4 @@
-var UserModel = require('../models/User.js');
+var UserModel = require('../models/User');
 
 var UserControl = function() {};
 
@@ -42,17 +42,14 @@ UserControl.addFriend = function(user_id, friend_id, callback){
 	});
 }
 
-UserControl.getFriends = function(user, callback){
-	var User = new UserModel(user);
-	User.getFriends(function(err, response){
+UserControl.getFriends = function(user_id, callback){
+    UserModel.getFriends(user_id, function(err, res){
 		if (err) {
-        	return done(err);
-        }
-        if (!response) {
-        	return done(null, false);
-        }
-        if (response) {
-            return done(null, response);
+        	callback(err.message, null);
+            return;
+        }else{
+            callback(null, res);
+            return;
         }
 	});
 }

@@ -12,22 +12,25 @@ var user = function(passport) {
 				res.redirect('/success', {title: "Success"});
 			}else{
 				console.log(err);
-				res.redirect('/login');
+				res.redirect('/home');
 			}
 		});	
 	});
 
 	router.get('/friends', function(req, res) {
-	    res.render('friends', { title: 'friends', message: req.flash('registerMessage') });
-		/*
-	    UserController.getFriends(function(err, friends) {
+	    // res.render('friends', { title: 'friends', message: req.flash('registerMessage') });
+		var user = req.res.req.user[0][0];
+		console.log(user);
+		var user_id = req.res.req.user[0][0].user_id;
+		console.log(user_id);
+	    UserController.getFriends(user_id, function(err, friends) {
 	        if(!err) {
-	            res.render('friends', {friends: friends});
+	            res.render('friends', {user: user, friends: friends[0], title: 'Friends'});
 	        } else {
+	        	console.log(err);
 	            res.redirect('/home');
 	        }
 	    });
-		*/
 	});
 
 	router.get('/:user_id', function(req, res) {
@@ -63,7 +66,7 @@ var user = function(passport) {
 			if(!err) {
 	            res.redirect('/success', {title: "Success"});
 	        } else {
-	            //res.redirect('/error?type=viewUser');
+	            res.redirect('/error?type=viewUser');
 	        }
 		});
 	});

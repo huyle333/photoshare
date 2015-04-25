@@ -11,9 +11,9 @@
 
     <div class="container">
     	<ul>
-        <li>
-
-        </li>
+        <% friends.forEach(function(el, i) {%>
+            <li><%= friends[i].email %></li>
+        <% }) %>
       </ul>
     </div>
   </body>
