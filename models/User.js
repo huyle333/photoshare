@@ -62,9 +62,10 @@ User.prototype.getFriends = function(callback) {
 }
 
 User.getUser = function(id, callback) {
+    console.log(this);
     db.query('SELECT email, password, first_name, last_name, dob, gender, user_id from Users WHERE user_id = ?', {replacements: [id]})
         .then(function(res) {
-            // console.log(res);
+            console.log(res);
             callback(null, res);
         }).catch(function(err) {
             callback(new Error(err));

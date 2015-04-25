@@ -9,7 +9,7 @@ module.exports = function(passport){
 
 	/* GET home page. */
 	router.get('/home', isLoggedIn, function(req, res, next) {
-	  res.render('home', { user: req.res.req, title: 'Home' });
+	  res.render('home', { body: req.res.req, title: 'Home' });
 	});
 
 	/* GET login page. */
@@ -41,11 +41,9 @@ module.exports = function(passport){
 		failureFlash: true
 	}));
 
-	router.post('/friend', passport.authenticate('local-friend', {
-		successRedirect: '/success',
-		failureRedirect: '/home',
-		failureFlash: true
-	}));
+	router.get('/success', function(req, res) {
+    	res.render('success', {});
+	});
 
     return router;
 }
