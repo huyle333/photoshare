@@ -23,20 +23,20 @@ var album = function(passport) {
         var userData = req.user[0][0];
         AlbumC.create(req.user[0][0], albumData, function(err, callback) {
             if (err) { 
-                res.render(
-                    'album',  {
+                res.redirect(
+                    '/album',  {
                         user: req.res.req.user[0][0], 
                         title: 'Album', 
                         messages: req.flash('Error creating album.')
                     });
             } else {
-                res.render('album', { user: req.res.req.user[0][0], title: 'Album'});
+                res.redirect('/album', { user: req.res.req.user[0][0], title: 'Album'});
             }
         });
     });
     router.get('/:albumId', function(req, res) {
         AlbumControl.get(req.params.albumId, function(err, pictures) {
-            var album = {}
+            var album = {};
             album.pictures = pictures;
             res.render('album-display', {album: album});
         })
