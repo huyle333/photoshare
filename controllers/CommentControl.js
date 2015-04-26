@@ -1,6 +1,6 @@
 var CommentModel = require('../models/Comment.js');
 
-var CommentModel = function() {};
+var CommentControl = function() {};
 
 CommentControl.create = function(user, comment, callback){
 	comment.user_id = user.user_id;
