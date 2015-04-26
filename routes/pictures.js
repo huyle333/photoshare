@@ -4,11 +4,8 @@ var router = express.Router();
 var PicturesC = require('../controllers/PicturesControl');
 var UserC = require('../models/User');
 var CommentC = require('../controllers/CommentControl');
-<<<<<<< HEAD
 var TagC = require('../controllers/TagControl');
-=======
 var LikeC = require('../controllers/LikeControl');
->>>>>>> 19c446ed9ff95cf9cd9687094cab15a369a42fe2
 
 var pictures = function(passport) {
 
