@@ -23,7 +23,10 @@
         <div>
               <ul>
               <% albums.forEach(function(el, i) {%>
-              <li> <a href='<%= "/album/" + albums[i].album_id%>'><%=albums[i].name%></a></li>
+              <li> <a href='<%= "/album/" + albums[i].album_id%>'><%=albums[i].name%></a>
+              <form class="form-signin" action="/album/del/<%=albums[i].album_id %>" method="POST">
+                  <button class="btn btn-lg primary" type="submit">X</button>
+              </form></li>
               <% }) %>
               </ul>
         </div>

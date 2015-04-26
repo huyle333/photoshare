@@ -24,4 +24,13 @@ AlbumControl.add = function(album, picture, callback) {
     });
 }
 
+AlbumControl.remove= function (album_id, callback) {
+    AlbumModel.getById(album_id, function(err, album) {
+        album = new AlbumModel(album);
+        console.log(album);
+        album.remove();
+        callback(null, null);
+    });
+}
+
 module.exports = AlbumControl;
