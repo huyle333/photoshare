@@ -1,5 +1,5 @@
 "use strict";
-
+var CommentModel = require('../models/Comment');
 var db = require('../models/index');
 
 function Pictures(data) {
@@ -39,5 +39,23 @@ Pictures.getById = function(photo_id, callback) {
         callback(new Error(err));
     });
 }
+
+//comment.picture_id
+Pictures.getComments = function(picture_id, callback){
+    db.query("SELECT Users.user_id, email, text, comment_date FROM Comment c INNER JOIN Users ON c.user_id = Users.user_id WHERE c.picture_id = ?",
+        {replacements: [picture_id]})
+    .then(function(comments){
+        comments = comments[0];
+        var array = [];
+        for (var i = 0; i < comments.length; i++) {
+            array.push(new CommentModel(comments[i]));
+        }
+        callback(null, array);
+    })
+    .catch(function(err) {
+        callback(err, null);
+    })
+}
+
 
 module.exports = Pictures;

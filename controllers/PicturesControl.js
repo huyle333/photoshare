@@ -1,4 +1,5 @@
 var PicturesModel = require('../models/Pictures');
+var CommentC = require('../controllers/CommentControl');
 
 var PicturesControl = function() {};
 
@@ -16,5 +17,12 @@ PicturesControl.getPic = function(pic_id, callback) {
         callback(null, picture);
     })
 }
+
+PicturesControl.getComments = function(picture_id, callback){
+	PicturesModel.getComments(picture_id, function(err, res) {
+        callback(null, res);
+    });
+}
+
 
 module.exports = PicturesControl;

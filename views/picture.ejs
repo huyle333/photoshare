@@ -21,5 +21,17 @@
         <button class="btn btn-lg btn-success btn-block" type="submit">Comment</button>    
       </form>
     </div>
+
+    <div class="container">
+      <ul>
+        <% comment.forEach(function(el, i) {%>
+        <h6><%=comment[i].user_id%></h6>
+        <h6><%=comment[i].email%></h6>
+        <h6><%=comment[i].comment_date%></h6>
+        <h4><%=comment[i].text%></h4>
+        <br>
+        <% }) %>
+      </ul>
+    </div>
   </body>
 </html>
