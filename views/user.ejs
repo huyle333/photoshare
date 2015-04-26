@@ -6,13 +6,12 @@
     <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <h3><%=user.first_name%> <%=user.last_name%></h3>
 
     <div class="container">
 
       <form class="form-signin" action='/user/<%=user.user_id%>/friend' method="POST">
-          <h2 class="form-signin-heading">Add a Friend</h2>
+          <h3 class="form-signin-heading">Add a Friend</h3>
           <input type="hidden" id="friend" name="friend" value != <%=user.user_id%> class="form-control" placeholder="Friend" required autofocus>
           
           <button class="btn btn-lg btn-success btn-block" type="submit">Friend</button>
@@ -20,8 +19,7 @@
     </div>
 
     <div class="container">
-    	 <h1>Welcome <%=user.first_name%> <%=user.last_name%></h1>
-       <h2>About</h2>
+       <h3>About</h3>
        <ul>
          <li><%=user.email%></li>
          <li><%=user.dob%></li>

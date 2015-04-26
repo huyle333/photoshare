@@ -12,7 +12,7 @@
     <div class="container">
     	<ul>
         <% friends.forEach(function(el, i) {%>
-            <li><%= friends[i].email %></li>
+            <li><a href='/user/<%=friends[i].user_id%>'><%= friends[i].email %></a></li>
         <% }) %>
       </ul>
     </div>
