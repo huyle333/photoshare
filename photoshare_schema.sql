@@ -144,7 +144,7 @@ DROP TABLE Comment;
 CREATE TABLE Comment
 (
   comment_id int4 NOT NULL PRIMARY KEY DEFAULT nextval('Comment_id_seq'),
-  picture_id int4 NOT NULL REFERENCES Pictures (picture_id),
+  picture_id int4 NOT NULL REFERENCES Pictures (picture_id) ON DELETE CASCADE,
   user_id int4 NOT NULL REFERENCES Users (user_id),
   text varchar(255) NOT NULL,
   comment_date date NOT NULL
