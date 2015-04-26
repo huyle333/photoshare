@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var UserController = require('../controllers/UserControl');
 
 module.exports = function(passport){
 	/* GET index page. */
@@ -42,7 +43,7 @@ module.exports = function(passport){
 	}));
 
 	router.get('/success', function(req, res) {
-    	res.render('success', {});
+    	res.render('success', { title: 'Success' });
 	});
 
     return router;

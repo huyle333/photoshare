@@ -13,9 +13,9 @@ function User(data) {
     this.user_id = data.user_id;
 }
 
-User.prototype.getId = function(callback) {
-    db.query('SELECT user_id from Users WHERE email = ?', this.email)
-        .then(function(user_id) {
+User.getIdByEmail = function(email, callback) {
+    db.query('SELECT user_id from Users WHERE email = ?', {replacements: [email]})
+        .then(function(res) {
             callback(null, res);
         }).catch(function(err) {
             callback(new Error(err));
@@ -54,7 +54,7 @@ User.addFriend = function(user_id, friend_id, callback) {
 }
 
 User.getFriends = function(user_id, callback) {
-    db.query('SELECT u.email, u.first_name, u.last_name from Users u, Friends f where u.user_id = f.friend_id and f.user_id = ?', {replacements: [user_id]})
+    db.query('SELECT u.email, u.first_name, u.last_name, u.user_id from Users u, Friends f where u.user_id = f.friend_id and f.user_id = ?', {replacements: [user_id]})
         .then(function(res) {
             callback(null, res);
         }).catch(function(err) {

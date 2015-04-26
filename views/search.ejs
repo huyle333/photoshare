@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+
+    <div class="container">
+    	<form class="form-signin" action='/user/search' method="POST">
+          <h2 class="form-signin-heading">Search for Friends</h2>
+          <label for="email" class="sr-only">Email Address</label>
+          <input type="email" id="email" name="email" class="form-control" placeholder="Email Address" required autofocus>
+          <button class="btn btn-lg btn-success btn-block" type="submit">Search</button>
+      </form>
+    </div>
+  </body>
+</html>
