@@ -2,10 +2,10 @@
 var PicturesModel = require('../models/Pictures');
 var db = require('../models/index');
 
-function Album(data, user) {
+function Album(data) {
     this.album_id = data.album_id;
     this.name = data.name;
-    this.owner = user.owner;
+    this.owner = data.owner;
     this.album_date = data.album_date;
 }
 
