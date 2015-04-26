@@ -1,4 +1,5 @@
 var PicturesModel = require('../models/Pictures');
+var CommentC = require('../controllers/CommentControl');
 
 var PicturesControl = function() {};
 
@@ -21,6 +22,11 @@ PicturesControl.getTags = function(pic_id, callback) {
     PicturesModel.getTag(pic_id, function(err, res) {
         if (err) { return(err, null) }
         else { return(null, res) }
+    });
+}
+PicturesControl.getComments = function(picture_id, callback){
+	PicturesModel.getComments(picture_id, function(err, res) {
+        callback(null, res);
     });
 }
 

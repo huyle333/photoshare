@@ -42,6 +42,19 @@ UserControl.getIdByEmail = function(email, callback){
     });
 }
 
+UserControl.getEmailById = function(id, callback){
+    UserModel.getEmailById(id, function(err, res){
+        if(err){
+            callback(err.message, null);
+            return;
+        }
+        else {
+            callback(null,res);
+            return;
+        }
+    });
+}
+
 UserControl.addFriend = function(user_id, friend_id, callback){
 	UserModel.addFriend(user_id, parseInt(friend_id), function(err, res){
 		if(err){

@@ -8,9 +8,16 @@ var CommentC = require('../controllers/CommentControl');
 var pictures = function(passport) {
 
     router.get('/:picture_id', function(req,res) {
+
         PicturesC.getPic(req.params.picture_id, function(err, pic) {
-            if (err) {}
-            else { res.render('picture', { picture: pic, title: "Picture"})}
+			if (err) {}
+            else {
+        		PicturesC.getComments(req.params.picture_id, function(err, comments) {
+	        		album= req.params.albumId;
+					console.log(comments);
+	        		res.render('picture', {comment: comments, picture: pic, title: "picture", album: req.params.albumId});
+    			})
+            }
         });
     });
 

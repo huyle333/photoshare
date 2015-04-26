@@ -22,6 +22,15 @@ User.getIdByEmail = function(email, callback) {
         });
 }
 
+User.getEmailById = function(id, callback) {
+    db.query('SELECT email from Users WHERE user_id = ?', {replacements: [id]})
+        .then(function(res) {
+            callback(null, res);
+        }).catch(function(err) {
+            callback(new Error(err));
+        });
+}
+
 User.prototype.addUser = function(callback) {
     /*
     db.query('INSERT INTO Users (email, password, first_name, last_name, dob, gender) VALUES (?, ?, ?, ?, to_date(?, \'MM DD YYYY\'), ?)', 
