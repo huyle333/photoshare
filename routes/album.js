@@ -36,9 +36,8 @@ var album = function(passport) {
     });
     router.get('/:albumId', function(req, res) {
         AlbumC.getPictures(req.params.albumId, function(err, pictures) {
-            var album = {};
-            album.pictures = pictures;
-            res.render('album-display', {album: album});
+            album= req.params.albumId;
+            res.render('album-display', {pic: pictures, title: "picture", album: req.params.albumId});
         })
     });
 

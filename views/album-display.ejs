@@ -7,12 +7,11 @@
   </head>
   <body>
     <h1><%= title %></h1>
-    <p>Welcome to <%= album.id%></p>
+    <p>Welcome to <%= album%></p>
     <div class="container">
-        <% album.forEach(function(el, i) { %>
-        <%= link_to('/pic/' + el.picture_id %>
-        <%= img_tag('/pic/' + el.picture_id %>
-        <% }) %>
+        <% for (var i = 0; i < pic.length; i++) { %>
+        <a href="/pic/<%= pic[i].picture_id %>"><img src="/<%= pic[i].imgdata%>" class="img-thumbnail" style="height:200px"></a>
+        <% } %>
     </div>
   </body>
 </html>

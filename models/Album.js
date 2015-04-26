@@ -9,17 +9,19 @@ function Album(data) {
     this.album_date = data.album_date;
 }
 
-Album.getPictures = function(album_id) {
-    db.query("SELECT imgdata, caption, picture_id FROM Pictures WHERE album=?",
+Album.getPictures = function(album_id, callback) {
+    db.query("SELECT imgdata, caption, picture_id, album FROM Pictures WHERE album=?",
             {replacements: [album_id]})
     .then(function(pictures) {
-        var pictures = pictures[0];
-        var array;
-        for (pic in pictures) {
-            array.push(new PicturesModel(pictures[pic]));
+        pictures = pictures[0];
+        var array = [];
+        for (var i = 0; i < pictures.length; i++) {
+            array.push(new PicturesModel(pictures[i]));
         }
-        console.log(array);
-        return array;
+        callback(null, array);
+    })
+    .catch(function(err) {
+        callback(err, null);
     })
 }
 
