@@ -39,6 +39,15 @@ Pictures.getById = function(photo_id, callback) {
         callback(new Error(err));
     });
 }
+Pictures.getTag = function(picture_id, callback) {
+    db.query("SELECT text FROM tag INNER JOIN PicturesTag ON tag.id=picturestag.tag WHERE photo=?",
+            {replacements: [picture_id]})
+    .then(function(tags) {
+        callback(null, tags);
+    }).catch(function(err) {
+        callbacK(new Error(err));
+    });
+}
 
 //comment.picture_id
 Pictures.getComments = function(picture_id, callback){
