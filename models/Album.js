@@ -35,8 +35,15 @@ Album.create = function(album, callback) {
     });
 }
 
-Album.remove = function() {
-    db.query ("DELETE FROM Album WHERE album_id = ?", 
+Album.getById = function(album_id, callback) {
+    db.query("SELECT * FROM Album WHERE album_id = ?", { replacements: [album_id]})
+        .then(function(album) {
+            callback(null, album[0][0]);
+        });
+}
+
+Album.prototype.remove = function() {
+    db.query("DELETE FROM Album WHERE album_id = ?", 
             {replacements: [this.album_id], type: 'DELETE'});
 }
 

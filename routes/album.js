@@ -17,11 +17,8 @@ var album = function(passport) {
 //    router.post('/new',isLoggedIn, function(req,res) {
     router.post('/', function(req,res) {
         var albumData = {owner: req.user[0][0].user_id, name :req.body.add_album};
-        var albumList = UserC.getAlbums(req.user[0][0].user_id);
-
-        console.log(albumList);
         var userData = req.user[0][0];
-        AlbumC.create(req.user[0][0], albumData, function(err, callback) {
+        AlbumC.create(userData, albumData, function(err, callback) {
             if (err) { 
                 res.redirect(
                     '/album',  {
@@ -30,7 +27,8 @@ var album = function(passport) {
                         messages: req.flash('Error creating album.')
                     });
             } else {
-                res.redirect('/album', { user: req.res.req.user[0][0], title: 'Album'});
+                console.log(callback);
+                res.redirect('/album/');
             }
         });
     });
@@ -50,6 +48,13 @@ var album = function(passport) {
             else { res.redirect('/pic/'+ response)}
         });
     });
+
+    router.post('/del/:album_id', function(req, res) {
+        AlbumC.remove(req.params.album_id, function(err, pictures) {
+            res.redirect('/album');
+        });
+    });
+
 
     return router;
 }
