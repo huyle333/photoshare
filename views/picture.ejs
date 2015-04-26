@@ -16,6 +16,13 @@
     </div>
 
     <div class="container">
+        <form class="form-signin" action='/pic/ <%=picture.picture_id %>/tag' method="POST">
+            <input type="text" class="form-control" placeholder="Tag" id="tag" name="tag" required>
+            <button class='btn btn-lg btn-succes btn-block' type='submit'>Tag</button>
+        </form>
+    </div>
+
+    <div class="container">
       <form class="form-signin" action="/pic/<%= picture.picture_id %>/comment" method="POST">
         <input type="text" class="form-control" placeholder="Comment" id="text" name="text" required>
         <button class="btn btn-lg btn-success btn-block" type="submit">Comment</button>    

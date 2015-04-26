@@ -4,6 +4,7 @@ var router = express.Router();
 var PicturesC = require('../controllers/PicturesControl');
 var UserC = require('../models/User');
 var CommentC = require('../controllers/CommentControl');
+var TagC = require('../controllers/TagControl');
 
 var pictures = function(passport) {
 
@@ -41,6 +42,20 @@ var pictures = function(passport) {
         });
     });
 
+    router.post('/:picture_id/tag', function (req, res) {
+        TagC.create(req.params.picture_id, req.params.tag, function(err, callback) {
+            if (err) {
+                res.redirect(
+                    '/pic/' + callback.picture_id, {
+                        user: req.res.req.user[0][0],
+                        title: 'Picture'
+                    });
+            } else {
+                res.redirect('/pic/' + req.params.picture_id);
+            }
+        });
+    });
+        
     return router;
 }
 
