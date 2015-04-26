@@ -4,6 +4,7 @@ var router = express.Router();
 var PicturesC = require('../controllers/PicturesControl');
 var UserC = require('../models/User');
 var CommentC = require('../controllers/CommentControl');
+var LikeC = require('../controllers/LikeControl');
 
 var pictures = function(passport) {
 
@@ -34,6 +35,26 @@ var pictures = function(passport) {
                         user: req.res.req.user[0][0], 
                         title: 'Picture', 
                         messages: req.flash('Error creating comment.')
+                    });
+            } else {
+                res.redirect('/pic/' + callback.picture_id, { user: req.res.req.user[0][0], title: 'Picture'});
+            }
+        });
+    });
+
+    router.post('/:picture_id/like', function(req,res) {
+        var likeData = {picture_id: req.params.picture_id, user_id: req.user[0][0].user_id};
+        //var likeList = PicturesC.getComments(req.params.picture_id);
+
+        //console.log(likeList);
+        var userData = req.user[0][0];
+        LikeC.create(req.user[0][0], likeData, function(err, callback) {
+            if (err) { 
+                res.redirect(
+                    '/pic/' + callback.picture_id,  {
+                        user: req.res.req.user[0][0], 
+                        title: 'Picture', 
+                        messages: req.flash('Error creating like.')
                     });
             } else {
                 res.redirect('/pic/' + callback.picture_id, { user: req.res.req.user[0][0], title: 'Picture'});
