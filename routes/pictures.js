@@ -16,20 +16,20 @@ var pictures = function(passport) {
 
     router.post('/:picture_id/comment', function(req,res) {
         var commentData = {picture_id: req.params.picture_id, user_id: req.user[0][0].user_id, text: req.body.text};
-        var commentList = PictureC.getComments(req.params.picture_id);
+        //var commentList = PicturesC.getComments(req.params.picture_id);
 
-        console.log(commentList);
+        //console.log(commentList);
         var userData = req.user[0][0];
         CommentC.create(req.user[0][0], commentData, function(err, callback) {
             if (err) { 
                 res.redirect(
-                    '/:picture_id',  {
+                    '/pic/' + callback.picture_id,  {
                         user: req.res.req.user[0][0], 
                         title: 'Picture', 
                         messages: req.flash('Error creating comment.')
                     });
             } else {
-                res.redirect('/:picture_id', { user: req.res.req.user[0][0], title: 'Picture'});
+                res.redirect('/pic/' + callback.picture_id, { user: req.res.req.user[0][0], title: 'Picture'});
             }
         });
     });

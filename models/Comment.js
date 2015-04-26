@@ -12,7 +12,7 @@ function Comment(data){
 Comment.create = function(comment, callback){
 	var now = new Date();
 	db.query("INSERT INTO Comment (picture_id, user_id, text, comment_date) values (?, ?, ?, ?)", 
-		{replacements: [comment.picture_id, comment.user_id, comment.text, comment.comment_date],
+		{replacements: [comment.picture_id, comment.user_id, comment.text, now],
 			type: 'INSERT'})
 	.then(function() {
 		callback(null, comment);
@@ -32,3 +32,5 @@ Comment.getComments = function(picture_id){
 		return array;
 	})
 }
+
+module.exports = Comment;
