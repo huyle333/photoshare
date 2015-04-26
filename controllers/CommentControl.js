@@ -9,3 +9,5 @@ CommentControl.create = function(user, comment, callback){
 		else { callback(null, res)}
 	});
 }
+
+module.exports = CommentControl;
