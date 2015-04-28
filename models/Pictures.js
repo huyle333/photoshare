@@ -45,7 +45,7 @@ Pictures.getTag = function(picture_id, callback) {
     .then(function(tags) {
         callback(null, tags[0]);
     }).catch(function(err) {
-        callbacK(new Error(err));
+        callback(new Error(err));
     });
 }
 
