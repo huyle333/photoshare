@@ -34,6 +34,22 @@ var user = function(passport) {
 	    });
 	});
 
+	router.get('/recommend', function(req, res) {
+	    // res.render('friends', { title: 'friends', message: req.flash('registerMessage') });
+		var user = req.res.req.user[0][0];
+		// console.log(user);
+		var email = req.res.req.user[0][0].email;
+		// console.log(email);
+	    UserController.getTop5Tags(email, function(err, tags) {
+	        if(!err) {
+	            res.render('recommend', {user: user, tags: tags[0], title: 'Recommend'});
+	        } else {
+	        	// console.log(err);
+	            res.redirect('/home');
+	        }
+	    });
+	});
+
 	router.get('/top', function(req, res) {
 	    UserController.getTop10(function(err, response) {
 	        if(!err) {
