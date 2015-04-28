@@ -14,9 +14,18 @@
         <h4>Caption: <%= picture.caption %> </h4>
 
     </div>
+    <%console.log(tags) %>
+    <div class="container">
+        <h2>Tags</h2>
+        <ul>
+            <% tags.forEach(function(el, i) { %>
+            <li><a href="/tag/<%= tags[i].id %>"><%=tags[i].text%></a></li>
+            <% }) %>
+        </ul>
+    </div>
 
     <div class="container">
-        <form class="form-signin" action='/pic/ <%=picture.picture_id %>/tag' method="POST">
+        <form class="form-signin" action='/pic/<%=picture.picture_id %>/tag' method="POST">
             <input type="text" class="form-control" placeholder="Tag" id="tag" name="tag" required>
             <button class='btn btn-lg btn-succes btn-block' type='submit'>Tag</button>
         </form>

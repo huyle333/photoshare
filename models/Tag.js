@@ -7,14 +7,25 @@ function Tag(data) {
 }
 
 Tag.create = function(text, callback)  {
-    db.query("INSERT INTO Tag (text) values (?) returning id", 
-            {replacements: [text],
-                type:'INSERT'})
-        .then(function(res) {
+    console.log(text);
+    db.query("SELECT * FROM Tag WHERE text = ?",
+            {replacements: [text]})
+    .then(function(res) {
+        if (!res[0]){
             callback(null, res[0]);
-        }).error(function() {
-            callback(err, null);
-        });
+        }
+        else {
+            db.query("INSERT INTO Tag (text) values (?) returning id", 
+                {replacements: [text],
+                    type:'INSERT'})
+                .then(function(res) {
+                    console.log(res);
+                    callback(null, res[0]);
+                }).error(function() {
+                    callback(err, null);
+                });
+        }
+    });
 }
 
 Tag.link = function(tag_id, pictures_id, callback) {
@@ -23,5 +34,9 @@ Tag.link = function(tag_id, pictures_id, callback) {
                 type:'INSERT'})
         .then(function(res) {
             callback(null, res)
+        }).error(function(res) {
+            callback(null, res)
         });
 }
+
+module.exports = Tag;

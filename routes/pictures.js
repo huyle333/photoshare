@@ -4,11 +4,8 @@ var router = express.Router();
 var PicturesC = require('../controllers/PicturesControl');
 var UserC = require('../models/User');
 var CommentC = require('../controllers/CommentControl');
-<<<<<<< HEAD
 var TagC = require('../controllers/TagControl');
-=======
 var LikeC = require('../controllers/LikeControl');
->>>>>>> 19c446ed9ff95cf9cd9687094cab15a369a42fe2
 
 var pictures = function(passport) {
 
@@ -18,10 +15,22 @@ var pictures = function(passport) {
 			if (err) {}
             else {
         		PicturesC.getComments(req.params.picture_id, function(err, comments) {
-	        		album= req.params.albumId;
-					console.log(comments);
-	        		res.render('picture', {comment: comments, picture: pic, title: "picture", album: req.params.albumId});
-    			})
+                    if (err) {console.log(err)}
+                    else {
+                        PicturesC.getTags(req.params.picture_id, function(error, tags) {
+                            if (error) {
+                            console.log(err)
+                            }
+                            else if (!tags) {
+                                res.render('picture', {comment: comments, picture: pic, title: "picture", album: req.params.albumId});
+                            }
+                            else {
+                                album= req.params.albumId;
+                                res.render('picture', {comment: comments, picture: pic, title: "picture", album: req.params.albumId, tags: tags});
+                            }
+                        });
+                    }
+                });
             }
         });
     });
@@ -47,7 +56,7 @@ var pictures = function(passport) {
     });
 
     router.post('/:picture_id/tag', function (req, res) {
-        TagC.create(req.params.picture_id, req.params.tag, function(err, callback) {
+        TagC.create(req.params.picture_id, req.body.tag, function(err, callback) {
             if (err) {
                 res.redirect(
                     '/pic/' + callback.picture_id, {
