@@ -53,5 +53,8 @@ PicturesControl.getOwner = function(picture_id, callback){
         callback(null, res);
     });
 }
+PicturesControl.remove = function(picture_id) {
+    PicturesModel.remove(picture_id);
+}
 
 module.exports = PicturesControl;

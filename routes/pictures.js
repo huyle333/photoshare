@@ -115,6 +115,11 @@ var pictures = function(passport) {
         });
     });
 
+    router.post('/:picture_id/del', function(req, res) {
+        PicturesC.remove(req.params.picture_id);
+        res.redirect('/album');
+    });
+
     return router;
 }
 

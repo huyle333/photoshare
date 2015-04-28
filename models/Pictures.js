@@ -113,5 +113,10 @@ Pictures.getLikes = function(picture_id, callback){
     })
 }
 
+Pictures.remove = function(picture_id) {
+    db.query('DELETE FROM Pictures WHERE picture_id = ?',
+            {replacements: [picture_id]});
+}
+
 
 module.exports = Pictures;
