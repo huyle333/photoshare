@@ -124,4 +124,21 @@ User.getTop10 = function(callback){
     });
 }
 
+User.getTop5Tags = function(email, callback){
+    db.query("SELECT PicturesTag.tag, t.text, COUNT(*) as total FROM Pictures p, Album a, Users u, Tag t INNER JOIN PicturesTag ON t.id = PicturesTag.tag WHERE u.user_id = a.user_id AND a.album_id = p.album AND p.picture_id = PicturesTag.photo AND u.email = ? GROUP BY PicturesTag.tag, t.text ORDER BY total DESC LIMIT 5",
+        {replacements: [email]})
+    .then(function(res) {
+        callback(null,res);
+    });
+}
+
+User.getTop5Pics = function(email, callback){
+    db.query("SELECT PicturesTag.photo, PicturesTag.tag, t.text, COUNT(*) as total FROM Pictures p, Album a, Users u, Tag t INNER JOIN PicturesTag ON t.id = PicturesTag.tag WHERE u.user_id = a.user_id AND a.album_id = p.album AND p.picture_id = PicturesTag.photo AND u.email = ? GROUP BY PicturesTag.photo, PicturesTag.tag, t.text ORDER BY total DESC LIMIT 5",
+        {replacements: [email]})
+    .then(function(res) {
+        callback(null,res);
+    });
+}
+
+
 module.exports = User;

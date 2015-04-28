@@ -92,4 +92,28 @@ UserControl.getTop10 = function(callback){
     });
 }
 
+UserControl.getTop5Tags = function(email, callback){
+    UserModel.getTop5Tags(email, function(err, res){
+        if (err) {
+            callback(err.message, null);
+            return;
+        }else{
+            callback(null, res);
+            return;
+        }
+    });
+}
+
+UserControl.getTop5Pics = function(email, callback){
+    UserModel.getTop5Pics(email, function(err, res){
+        if (err) {
+            callback(err.message, null);
+            return;
+        }else{
+            callback(null, res);
+            return;
+        }
+    });
+}
+
 module.exports = UserControl;
