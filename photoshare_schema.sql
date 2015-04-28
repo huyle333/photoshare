@@ -129,7 +129,7 @@ DROP TABLE PicturesTag;
 CREATE TABLE PicturesTag
 (
   photo int4 REFERENCES Pictures (picture_id) ON DELETE CASCADE,
-  tag int4 REFERENCES Tag (id)
+  tag int4 REFERENCES Tag (id) NOT NULL
 );
 
 DROP TABLE Friends;
