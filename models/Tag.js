@@ -10,10 +10,8 @@ Tag.create = function(text, callback)  {
     db.query("SELECT id FROM Tag WHERE text = ?",
             {replacements: [text]})
     .then(function(res) {
-        console.log("RES: " + res);
         if (res[0].length > 0){
-            console.log("HELLO" + res[0]);
-            callback(null, res[0]);
+            callback(null, res[0][0]);
             return;
         }
         else {

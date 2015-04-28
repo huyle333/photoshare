@@ -60,7 +60,6 @@ var pictures = function(passport) {
             var commentData = {picture_id: req.params.picture_id, user_id: req.user[0][0].user_id, text: req.body.text};
             PicturesC.getOwner(req.params.picture_id, function(err1, callback1){
                 CommentC.create(req.user[0][0], commentData, function(err, callback) {
-                console.log(callback1);
                 if (err) { 
                     res.redirect(
                         '/pic/' + callback.picture_id,  {

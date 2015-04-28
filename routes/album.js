@@ -27,7 +27,6 @@ var album = function(passport) {
                         messages: req.flash('Error creating album.')
                     });
             } else {
-                console.log(callback);
                 res.redirect('/album/');
             }
         });
@@ -43,7 +42,6 @@ var album = function(passport) {
         var album = {album_id: req.body.album}
         var pic = {caption: req.body.caption, picture: req.files.pic.path.substring(7)}
         AlbumC.add(album, pic, function(err, response) {
-            console.log(response);
             if (err) { res.redirect('/')}
             else { res.redirect('/pic/'+ response)}
         });

@@ -6,7 +6,6 @@ TagControl.create = function(picture_id, text, callback) {
     TagModel.create(text, function(err, success) {
         if (err) {callback(err, null)}
         else {
-            console.log("HIIIII" + success);
             TagModel.link(success.id, parseInt(picture_id), function(err, res) {
                 if (err) {callback(err, null)}
                 else { callback(null, res)}
