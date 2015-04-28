@@ -7,20 +7,21 @@ function Tag(data) {
 }
 
 Tag.create = function(text, callback)  {
-    console.log(text);
-    db.query("SELECT * FROM Tag WHERE text = ?",
+    db.query("SELECT id FROM Tag WHERE text = ?",
             {replacements: [text]})
     .then(function(res) {
+        console.log("RES: " + res);
         if (res[0].length > 0){
+            console.log("HELLO" + res[0]);
             callback(null, res[0]);
+            return;
         }
         else {
             db.query("INSERT INTO Tag (text) values (?) returning id", 
                 {replacements: [text],
                     type:'INSERT'})
-                .then(function(res) {
-                    console.log(res);
-                    callback(null, res[0]);
+                .then(function(response) {
+                    callback(null, response[0]);
                 }).error(function() {
                     callback(err, null);
                 });
