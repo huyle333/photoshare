@@ -44,5 +44,10 @@ PicturesControl.getLikes = function(picture_id, callback){
     });
 }
 
+PicturesControl.getOwner = function(picture_id, callback){
+    PicturesModel.getOwner(picture_id, function(err, res) {
+        callback(null, res);
+    });
+}
 
 module.exports = PicturesControl;

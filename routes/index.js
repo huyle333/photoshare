@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var AlbumC = require('../controllers/AlbumControl');
+var UserC = require('../models/User');
 var UserController = require('../controllers/UserControl');
 
 module.exports = function(passport){
@@ -11,6 +13,14 @@ module.exports = function(passport){
 	/* GET home page. */
 	router.get('/home', isLoggedIn, function(req, res, next) {
 	  res.render('home', { body: req.res.req, title: 'Home' });
+	});
+
+	router.get('/explore', function(req, res) {
+	  // var user = req.res.req.user[0][0];
+	  // console.log(user);
+      UserC.getAllAlbums(function(err, albums) {
+      	res.render('explore', {albums: albums[0], title: 'Explore'});
+      })
 	});
 
 	/* GET login page. */

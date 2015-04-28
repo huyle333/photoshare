@@ -20,7 +20,7 @@
     </div>
     <%console.log(tags) %>
     <div class="container">
-        <h2>Tags</h2>
+        <h2>Tags:</h2>
         <ul>
             <% tags.forEach(function(el, i) { %>
             <li><a href="/tag/<%= tags[i].id %>"><%=tags[i].text%></a></li>
@@ -28,12 +28,14 @@
         </ul>
     </div>
 
+    <% if(typeof user != 'undefined'){ %>
     <div class="container">
         <form class="form-signin" action='/pic/<%=picture.picture_id %>/tag' method="POST">
             <input type="text" class="form-control" placeholder="Tag" id="tag" name="tag" required>
             <button class='btn btn-lg btn-succes btn-block' type='submit'>Tag</button>
         </form>
     </div>
+    <% } %>
 
     <div class="container">
       <form class="form-signin" action="/pic/<%= picture.picture_id %>/comment" method="POST">
@@ -42,11 +44,13 @@
       </form>
     </div>
 
+    <% if(typeof user != 'undefined'){ %>
     <div class="container">
       <form class="form-signin" action="/pic/<%= picture.picture_id %>/like" method="POST">
         <button class="btn btn-lg btn-primary btn-block" type="submit">Like</button>    
       </form>
     </div>
+    <% } %>
 
     <div class="container">
         <% var likeCount = 0;%>
@@ -72,8 +76,14 @@
     <div class="container">
       <ul>
         <% comment.forEach(function(el, i) {%>
-        <!-- <h6><%=comment[i].user_id%></h6> -->
+        <% if(typeof user === 'undefined'){ %>
+          <h6>Anonymous</h6>
+        <% }else{ %>
         <h6><%=comment[i].email%></h6>
+        <% } %>
+         <% if(owner === 'TRUE'){ %>
+          <h6> Author </h6>
+          <% } %>
         <h6><%=comment[i].comment_date%></h6>
         <h4><%=comment[i].text%></h4>
         <br>

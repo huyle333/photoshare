@@ -163,6 +163,14 @@ INSERT INTO Users
 ) 
 VALUES 
 (
+    'Anonymous', 'anon', 'anon', 'anon', '01/01/0001', 'M'
+);
+INSERT INTO Users 
+(
+    email, password, first_name, last_name, dob, gender
+) 
+VALUES 
+(
     'test@bu.edu', 'test', 'test', 'test1', '11/25/1992', 'M'
 );
 INSERT INTO Users 

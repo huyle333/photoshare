@@ -108,6 +108,14 @@ User.getAlbums = function(user_id, callback) {
     });
 }
 
+User.getAllAlbums = function(callback) {
+    db.query('SELECT album_id, name FROM Album', 
+            {})
+    .then(function(res) {
+        callback(null,res);
+    });
+}
+
 User.getTop10 = function(callback){
     db.query("SELECT results.email, SUM(results.total) as score FROM ((SELECT u.email, COUNT(*) as total FROM users u, pictures p, album a WHERE u.user_id = a.user_id AND a.album_id = p.album GROUP BY u.email ORDER BY total DESC) UNION ALL (SELECT u.email, COUNT(*) as total FROM users u, comment c WHERE u.user_id = c.user_id GROUP BY u.email ORDER BY total DESC)) as results WHERE results.email != 'ANONYMOUS' GROUP BY results.email ORDER BY score DESC LIMIT 10",
         {})

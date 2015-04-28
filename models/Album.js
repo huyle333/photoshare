@@ -27,7 +27,7 @@ Album.getPictures = function(album_id, callback) {
 
 Album.create = function(album, callback) {
     var now = new Date();
-    db.query("INSERT INTO Album (user_id, name, album_date) values ( ?,  ?, ?)", 
+    db.query("INSERT INTO Album (user_id, name, album_date) values ( ?, ?, ?)", 
             {replacements: [album.owner, album.name, now],
             type: 'INSERT'})
     .then(function() {
