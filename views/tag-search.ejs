@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+
+    <div class="container">
+    	<form class="form-signin" action='/tag/search' method="POST">
+          <h2 class="form-signin-heading">Search By Tag</h2>
+          <label for="tag" class="sr-only">Tag</label>
+          <input type="text" id="tag" name="tag" class="form-control" placeholder="Tag" required autofocus>
+          <button class="btn btn-lg btn-success btn-block" type="submit">Search</button>
+      </form>
+    </div>
+  </body>
+</html>

@@ -60,6 +60,17 @@ Pictures.getByTag = function(tag_id, callback) {
     })
 }
 
+Pictures.getByTagBody = function(tag_body, callback) {
+    db.query("SELECT picture_id, imgdata, caption, picture_id, album FROM Pictures INNER JOIN PicturesTag ON photo=picture_id INNER JOIN Tag ON Tag.id=PicturesTag.tag WHERE text=?",
+            {replacements: [tag_body]})
+    .then(function(pictures) {
+        callback(null, pictures[0]);
+    })
+    .catch(function(err) {
+        callback(err, null);
+    })
+}
+
 //comment.picture_id
 Pictures.getComments = function(picture_id, callback){
     db.query("SELECT Users.user_id, email, text, comment_date FROM Comment c INNER JOIN Users ON c.user_id = Users.user_id WHERE c.picture_id = ?",
