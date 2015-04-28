@@ -68,7 +68,7 @@ Pictures.getComments = function(picture_id, callback){
 
 //likes.picture_id
 Pictures.getLikes = function(picture_id, callback){
-    db.query("SELECT Users.user_id FROM Likes l INNER JOIN Users ON l.user_id = Users.user_id WHERE l.picture_id = ?",
+    db.query("SELECT Users.user_id, email FROM Likes l INNER JOIN Users ON l.user_id = Users.user_id WHERE l.picture_id = ?",
         {replacements: [picture_id]})
     .then(function(likes){
         likes = likes[0];

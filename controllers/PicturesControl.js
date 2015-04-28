@@ -24,8 +24,15 @@ PicturesControl.getTags = function(pic_id, callback) {
         else { return(null, res) }
     });
 }
+
 PicturesControl.getComments = function(picture_id, callback){
 	PicturesModel.getComments(picture_id, function(err, res) {
+        callback(null, res);
+    });
+}
+
+PicturesControl.getLikes = function(picture_id, callback){
+    PicturesModel.getLikes(picture_id, function(err, res) {
         callback(null, res);
     });
 }
