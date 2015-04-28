@@ -24,12 +24,10 @@ module.exports = function(passport){
 		failureFlash : true
 	}));
 
-	/*
-	app.get('/logout', function(req, res) {
+	router.get('/logout', function(req, res) {
         req.logout();
         res.redirect('/');
     });
-	*/
 
     /* GET register page. */
 	router.get('/register', function(req, res, next) {
