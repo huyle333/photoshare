@@ -18,6 +18,13 @@ PicturesControl.getPic = function(pic_id, callback) {
     })
 }
 
+PicturesControl.getByTag = function(tag_id, callback) {
+    PicturesModel.getByTag(tag_id, function(err, pic) {
+        console.log(pic);
+        callback(null, pic);
+    })
+}
+
 PicturesControl.getTags = function(pic_id, callback) {
     PicturesModel.getTag(pic_id, function(err, res) {
         if (err) { callback(err, null) }

@@ -17,6 +17,7 @@ var routes = require('./routes/index')(passport);
 var user = require('./routes/user')(passport);
 var album = require('./routes/album')(passport);
 var picture = require('./routes/pictures')(passport);
+var tag = require('./routes/tag')(passport);
 
 var app = express();
 
@@ -62,6 +63,7 @@ app.use('/', routes);
 app.use('/user', user);
 app.use('/album', album);
 app.use('/pic', picture);
+app.use('/tag', tag);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

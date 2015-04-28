@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= tags%></p>
+    <div class="container">
+        <%  console.log(pic) %>
+        <% for (var i = 0; i < pic.length; i++) { %>
+        <a href="/pic/<%= pic[i].picture_id %>"><img src="/<%= pic[i].imgdata%>" class="img-thumbnail" style="height:200px"></a>
+        <% } %>
+    </div>
+  </body>
+</html>
