@@ -38,8 +38,7 @@ var pictures = function(passport) {
         //var commentList = PicturesC.getComments(req.params.picture_id);
 
         //console.log(commentList);
-        var userData = req.user[0][0];
-        CommentC.create(req.user[0][0], commentData, function(err, callback) {
+        CommentC.create(req.params.picture_id, commentData, function(err, callback) {
             if (err) { 
                 res.redirect(
                     '/pic/' + callback.picture_id,  {
@@ -73,7 +72,7 @@ var pictures = function(passport) {
 
         //console.log(likeList);
         var userData = req.user[0][0];
-        LikeC.create(req.user[0][0], likeData, function(err, callback) {
+        LikeC.create(req.params.picture_id, likeData, function(err, callback) {
             if (err) { 
                 res.redirect(
                     '/pic/' + callback.picture_id,  {

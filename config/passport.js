@@ -1,3 +1,5 @@
+"use strict";
+
 var LocalStrategy   = require('passport-local').Strategy;
 var UserModel       = require('../models/User');
 
@@ -40,20 +42,30 @@ module.exports = function(passport) {
         passwordField : 'password',
         passReqToCallback : true // allows us to pass back the entire request to the callback
     },
-    function(req, data, done) {
+    function(req, email, password, done) {
         console.log(req.body);
         var newUser = new UserModel(req.body);
-        
-        newUser.addUser(function(err, user) {
-            if (err) {
-                // console.log(err);
-                return done(err);
+        newUser.checkUserIDByEmail(newUser.email, function(err1, user1){
+            if(err1){
+                return done(err1);
             }
-            if (!user) {
-                return done(null, false);
-            }
-            if (user) {
-                return done(null, user);
+            if(typeof user1[0][0].user_id != undefined){
+                // console.log(user1[0][0].user_id);
+                console.log("Email has already been registered");
+                done(null, false);
+            }else{
+                newUser.addUser(function(err2, user2) {
+                    if (err2) {
+                        // console.log(err);
+                        return done(err2);
+                    }
+                    if (!user2) {
+                        return done(null, false);
+                    }
+                    if (user2) {
+                        return done(null, user2);
+                    }
+                });
             }
         });
     })

@@ -32,5 +32,3 @@ config.js
 public/uploads
 
 package.json
-
-photoshare_schema.sql
