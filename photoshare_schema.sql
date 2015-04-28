@@ -22,7 +22,7 @@ DROP TABLE Tag CASCADE;
 CREATE TABLE TAG
 (
   id int4 NOT NULL PRIMARY KEY DEFAULT nextval('Tag_id_seq'),
-  text varchar(255) NOT NULL
+  text varchar(255) UNIQUE NOT NULL
 );
 
 CREATE SEQUENCE Users_user_id_seq

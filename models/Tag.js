@@ -11,7 +11,7 @@ Tag.create = function(text, callback)  {
     db.query("SELECT * FROM Tag WHERE text = ?",
             {replacements: [text]})
     .then(function(res) {
-        if (!res[0]){
+        if (res[0].length > 0){
             callback(null, res[0]);
         }
         else {
