@@ -14,12 +14,22 @@ var pictures = function(passport) {
 			if (err) {}
             else {
         		PicturesC.getComments(req.params.picture_id, function(err, comments) {
-	        		PicturesC.getLikes(req.params.picture_id, function(err, likes) {
-                        album = req.params.albumId;
-					   // console.log(comments);
-	        	      res.render('picture', {like: likes, comment: comments, picture: pic, title: "picture", album: req.params.albumId});
-                  })
-    			})
+                    if (err) {console.log(err)}
+                    else {
+                        PicturesC.getTags(req.params.picture_id, function(error, tags) {
+                            if (error) {
+                            console.log(err)
+                            }
+                            else if (!tags) {
+                                res.render('picture', {comment: comments, picture: pic, title: "picture", album: req.params.albumId});
+                            }
+                            else {
+                                album= req.params.albumId;
+                                res.render('picture', {comment: comments, picture: pic, title: "picture", album: req.params.albumId, tags: tags});
+                            }
+                        });
+                    }
+                });
             }
         });
     });
@@ -45,7 +55,7 @@ var pictures = function(passport) {
     });
 
     router.post('/:picture_id/tag', function (req, res) {
-        TagC.create(req.params.picture_id, req.params.tag, function(err, callback) {
+        TagC.create(req.params.picture_id, req.body.tag, function(err, callback) {
             if (err) {
                 res.redirect(
                     '/pic/' + callback.picture_id, {

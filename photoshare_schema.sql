@@ -95,7 +95,7 @@ DROP TABLE Album CASCADE;
 CREATE TABLE Album
 (
   album_id int4 NOT NULL DEFAULT nextval('Album_id_seq'),
-  name varchar(255) NOT NULL,
+  name varchar(255) UNIQUE NOT NULL,
   user_id int4 REFERENCES Users (user_id),
   album_date date NOT NULL,
   CONSTRAINT album_pk PRIMARY KEY (album_id)
@@ -121,7 +121,7 @@ CREATE TABLE Likes
 DROP TABLE PicturesTag;
 CREATE TABLE PicturesTag
 (
-  photo int4 REFERENCES Pictures (picture_id),
+  photo int4 REFERENCES Pictures (picture_id) ON DELETE CASCADE,
   tag int4 REFERENCES Tag (id)
 );
 

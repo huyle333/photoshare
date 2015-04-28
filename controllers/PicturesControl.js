@@ -20,8 +20,8 @@ PicturesControl.getPic = function(pic_id, callback) {
 
 PicturesControl.getTags = function(pic_id, callback) {
     PicturesModel.getTag(pic_id, function(err, res) {
-        if (err) { return(err, null) }
-        else { return(null, res) }
+        if (err) { callback(err, null) }
+        else { callback(null, res) }
     });
 }
 

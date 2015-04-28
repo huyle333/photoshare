@@ -40,10 +40,10 @@ Pictures.getById = function(photo_id, callback) {
     });
 }
 Pictures.getTag = function(picture_id, callback) {
-    db.query("SELECT text FROM tag INNER JOIN PicturesTag ON tag.id=picturestag.tag WHERE photo=?",
+    db.query("SELECT text,id FROM tag INNER JOIN PicturesTag ON tag.id=picturestag.tag WHERE photo=?",
             {replacements: [picture_id]})
     .then(function(tags) {
-        callback(null, tags);
+        callback(null, tags[0]);
     }).catch(function(err) {
         callbacK(new Error(err));
     });
