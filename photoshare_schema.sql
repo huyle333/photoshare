@@ -32,7 +32,7 @@ CREATE SEQUENCE Users_user_id_seq
   START 14
   CACHE 1;
 
-DROP SEQUENCE Education_id_seq CASCADE;
+/*DROP SEQUENCE Education_id_seq CASCADE;
 CREATE SEQUENCE Education_id_seq 
   INCREMENT 1
   MINVALUE 1
@@ -64,7 +64,7 @@ CREATE TABLE Location
   state varchar(255) NOT NULL,
   country varchar(255) NOT NULL,
   CONSTRAINT location_pk PRIMARY KEY (id)
-);
+);*/
 
 CREATE TABLE Users
 (
@@ -76,9 +76,16 @@ CREATE TABLE Users
   last_name varchar(255) NOT NULL,
   dob date NOT NULL,
   gender varchar(1) NOT NULL,
-  education int4 REFERENCES Education (id),
+  /*education int4 REFERENCES Education (id),
   location int4 REFERENCES Location (id),
-  hometown int4 REFERENCES Location (id),
+  hometown int4 REFERENCES Location (id),*/
+  current_city varchar(255),
+  current_state varchar(255),
+  current_country varchar(255),
+  hometown_city varchar(255),
+  hometown_state varchar(255),
+  hometown_country varchar(255),
+  education varchar(255), 
   UNIQUE(email),
   CONSTRAINT users_pk PRIMARY KEY (user_id)
 );
@@ -150,6 +157,14 @@ CREATE TABLE Comment
   comment_date date NOT NULL
 );
 
+INSERT INTO Users 
+(
+    email, password, first_name, last_name, dob, gender
+) 
+VALUES 
+(
+    'Anonymous', 'anon', 'anon', 'anon', '01/01/0001', 'M'
+);
 INSERT INTO Users 
 (
     email, password, first_name, last_name, dob, gender

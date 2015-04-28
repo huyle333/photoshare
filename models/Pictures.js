@@ -88,6 +88,14 @@ Pictures.getComments = function(picture_id, callback){
     })
 }
 
+Pictures.getOwner = function(picture_id, callback){
+    db.query("SELECT a.user_id FROM Pictures p INNER JOIN Album a ON a.album_id = p.album WHERE p.picture_id = ?",
+        {replacements: [picture_id]})
+    .then(function(res) {
+        callback(null,res);
+    });
+}
+
 //likes.picture_id
 Pictures.getLikes = function(picture_id, callback){
     db.query("SELECT Users.user_id, email FROM Likes l INNER JOIN Users ON l.user_id = Users.user_id WHERE l.picture_id = ?",

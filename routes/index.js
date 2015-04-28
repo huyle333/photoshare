@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var AlbumC = require('../controllers/AlbumControl');
+var UserC = require('../models/User');
 var UserController = require('../controllers/UserControl');
 
 module.exports = function(passport){
@@ -13,6 +15,14 @@ module.exports = function(passport){
 	  res.render('home', { body: req.res.req, title: 'Home' });
 	});
 
+	router.get('/explore', function(req, res) {
+	  // var user = req.res.req.user[0][0];
+	  // console.log(user);
+      UserC.getAllAlbums(function(err, albums) {
+      	res.render('explore', {albums: albums[0], title: 'Explore'});
+      })
+	});
+
 	/* GET login page. */
 	router.get('/login', function(req, res, next) {
 	  res.render('login', { title: 'Login', message: req.flash('loginMessage') });
@@ -24,12 +34,10 @@ module.exports = function(passport){
 		failureFlash : true
 	}));
 
-	/*
-	app.get('/logout', function(req, res) {
+	router.get('/logout', function(req, res) {
         req.logout();
         res.redirect('/');
     });
-	*/
 
     /* GET register page. */
 	router.get('/register', function(req, res, next) {
@@ -37,7 +45,7 @@ module.exports = function(passport){
 	});
 
 	router.post('/register', passport.authenticate('local-register', {
-		successRedirect: '/home',
+		successRedirect: '/login',
 		failureRedirect: '/register',
 		failureFlash: true
 	}));

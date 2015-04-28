@@ -10,6 +10,7 @@ var LikeC = require('../controllers/LikeControl');
 var pictures = function(passport) {
 
     router.get('/:picture_id', function(req,res) {
+        // console.log(req.user[0][0].user_id);
         PicturesC.getPic(req.params.picture_id, function(err, pic) {
 			if (err) {}
             else {
@@ -23,7 +24,14 @@ var pictures = function(passport) {
                             else {
                                 album = req.params.albumId;
                                 PicturesC.getLikes(req.params.picture_id, function(err3, likes) {
-                                    res.render('picture', {like: likes, comment: comments, picture: pic, title: "Picture", album: req.params.albumId, tags: tags});
+                                    PicturesC.getOwner(req.params.picture_id, function(err4, callback1){
+                                        //console.log(callback1[0][0].user_id);
+                                        if (typeof req.user === 'undefined'){
+                                            res.render('picture', {owner: callback1[0][0], like: likes, comment: comments, picture: pic, title: "Picture", album: req.params.albumId, tags: tags});
+                                        }else{
+                                            res.render('picture', {owner: callback1[0][0], user: req.user[0][0], like: likes, comment: comments, picture: pic, title: "Picture", album: req.params.albumId, tags: tags});
+                                        }
+                                    });
                                 });
                             }
                         });
@@ -34,30 +42,51 @@ var pictures = function(passport) {
     });
 
     router.post('/:picture_id/comment', function(req,res) {
-        var commentData = {picture_id: req.params.picture_id, user_id: req.user[0][0].user_id, text: req.body.text};
-        //var commentList = PicturesC.getComments(req.params.picture_id);
-
-        //console.log(commentList);
-        var userData = req.user[0][0];
-        CommentC.create(req.user[0][0], commentData, function(err, callback) {
+        if (typeof req.user === 'undefined'){
+            var commentData = {picture_id: req.params.picture_id, user_id: 14, text: req.body.text};
+            CommentC.createAnonymousComment(commentData, function(err, callback) {
             if (err) { 
                 res.redirect(
                     '/pic/' + callback.picture_id,  {
-                        user: req.res.req.user[0][0], 
+                        user: commentData, 
                         title: 'Picture', 
                         messages: req.flash('Error creating comment.')
                     });
             } else {
-                res.redirect('/pic/' + callback.picture_id, { user: req.res.req.user[0][0], title: 'Picture'});
+                res.redirect('/pic/' + callback.picture_id, {user: commentData, title: 'Picture'});
             }
-        });
+            });
+        }else{
+            var commentData = {picture_id: req.params.picture_id, user_id: req.user[0][0].user_id, text: req.body.text};
+            PicturesC.getOwner(req.params.picture_id, function(err1, callback1){
+                CommentC.create(req.user[0][0], commentData, function(err, callback) {
+                console.log(callback1);
+                if (err) { 
+                    res.redirect(
+                        '/pic/' + callback.picture_id,  {
+                            owner: callback1[0][0],
+                            user: req.res.req.user[0][0], 
+                            title: 'Picture', 
+                            messages: req.flash('Error creating comment.')
+                        });
+                } else {
+                    res.redirect('/pic/' + callback.picture_id, {owner: callback1[0][0], user: req.res.req.user[0][0], title: 'Picture'});
+                }
+                });
+            }); 
+        }
+        //var commentList = PicturesC.getComments(req.params.picture_id);
+
+        // console.log(commentList);
+        // var userData = req.user[0][0];
+        
     });
 
     router.post('/:picture_id/tag', function (req, res) {
         TagC.create(req.params.picture_id, req.body.tag, function(err, callback) {
             if (err) {
                 res.redirect(
-                    '/pic/' + callback.picture_id, {
+                    '/pic/' + req.params.picture_id, {
                         user: req.res.req.user[0][0],
                         title: 'Picture'
                     });

@@ -10,4 +10,11 @@ CommentControl.create = function(user, comment, callback){
 	});
 }
 
+CommentControl.createAnonymousComment = function(comment, callback){
+	CommentModel.create(comment, function(err, res){
+		if (err) { callback(err.message, null)}
+		else { callback(null, res)}
+	});
+}
+
 module.exports = CommentControl;

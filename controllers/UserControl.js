@@ -4,7 +4,7 @@ var UserControl = function() {};
 
 UserControl.addUser = function(data, callback){
     var User = new UserModel(data);
-    User.create(function(err,res){
+    User.addUser(function(err,res){
         if(err){
             callback(err.message, null);
             return;

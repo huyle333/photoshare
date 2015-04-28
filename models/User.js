@@ -9,7 +9,17 @@ function User(data) {
     this.last_name = data.last_name;
     this.dob = data.dob;
     this.gender = data.gender;
-    // this.location = data.location;
+
+    this.current_city = data.current_city;
+    this.current_state = data.current_state;
+    this.current_country = data.current_country;
+
+    this.hometown_city = data.hometown_city;
+    this.hometown_state = data.hometown_state;
+    this.hometown_country = data.hometown_country;
+
+    this.education = data.education;
+
     this.user_id = data.user_id;
 }
 
@@ -32,18 +42,8 @@ User.getEmailById = function(id, callback) {
 }
 
 User.prototype.addUser = function(callback) {
-    /*
-    db.query('INSERT INTO Users (email, password, first_name, last_name, dob, gender) VALUES (?, ?, ?, ?, to_date(?, \'MM DD YYYY\'), ?)', 
-            {replacements: ['huyle333@bu.edu', 'test', 'Huy', 'Le', '01-14-1995', 'M'], type:'INSERT'})
-    .then(function(res) {
-        // console.log(res);
-        callback(null, res);
-    }).catch(function(err) {
-        callback(new Error(err));
-    });
-    */
-    db.query('INSERT INTO Users (email, password, first_name, last_name, dob, gender) VALUES (?, ?, ?, ?, to_date(?, \'MM DD YYYY\'), ?)', 
-            {replacements: [this.email, this.password, this.first_name, this.last_name, this.dob, this.gender], type:'INSERT'})
+    db.query('INSERT INTO Users (email, password, first_name, last_name, dob, gender, current_city, current_state, current_country, hometown_city, hometown_state, hometown_country, education) VALUES (?, ?, ?, ?, to_date(?, \'MM DD YYYY\'), ?, ?, ?, ?, ?, ?, ?, ?)', 
+            {replacements: [this.email, this.password, this.first_name, this.last_name, this.dob, this.gender, this.current_city, this.current_state, this.current_country, this.hometown_city, this.hometown_state, this.hometown_country, this.education], type:'INSERT'})
         .then(function(res) {
             // console.log(res);
             callback(null, res);
@@ -90,9 +90,27 @@ User.getUserCredential = function(email, password, callback) {
     });
 }
 
+User.prototype.checkUserIDByEmail = function(email, callback) {
+    db.query('SELECT user_id FROM Users WHERE email = ?', 
+            {replacements: [email]})
+    .then(function(res) {
+        callback(null, res);
+    }).catch(function(err) {
+        callback(new Error(err));
+    });
+}
+
 User.getAlbums = function(user_id, callback) {
     db.query('SELECT album_id, name FROM Album WHERE user_id = ?', 
             {replacements: [user_id]})
+    .then(function(res) {
+        callback(null,res);
+    });
+}
+
+User.getAllAlbums = function(callback) {
+    db.query('SELECT album_id, name FROM Album', 
+            {})
     .then(function(res) {
         callback(null,res);
     });
