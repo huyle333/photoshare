@@ -121,7 +121,7 @@ CREATE TABLE Likes
 DROP TABLE PicturesTag;
 CREATE TABLE PicturesTag
 (
-  photo int4 REFERENCES Pictures (picture_id),
+  photo int4 REFERENCES Pictures (picture_id) ON DELETE CASCADE,
   tag int4 REFERENCES Tag (id)
 );
 
