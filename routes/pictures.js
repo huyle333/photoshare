@@ -17,7 +17,7 @@ var pictures = function(passport) {
                     if (err) {console.log(err2);}
                     else {
                         PicturesC.getTags(req.params.picture_id, function(err2, tags) {
-                            if (error) {
+                            if (err2) {
                                 console.log(err3);
                             }
                             else {
