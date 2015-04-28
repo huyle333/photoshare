@@ -13,19 +13,18 @@ var pictures = function(passport) {
         PicturesC.getPic(req.params.picture_id, function(err, pic) {
 			if (err) {}
             else {
-        		PicturesC.getComments(req.params.picture_id, function(err, comments) {
-                    if (err) {console.log(err)}
+        		PicturesC.getComments(req.params.picture_id, function(err1, comments) {
+                    if (err) {console.log(err2);}
                     else {
-                        PicturesC.getTags(req.params.picture_id, function(error, tags) {
+                        PicturesC.getTags(req.params.picture_id, function(err2, tags) {
                             if (error) {
-                            console.log(err)
-                            }
-                            else if (!tags) {
-                                res.render('picture', {comment: comments, picture: pic, title: "picture", album: req.params.albumId});
+                                console.log(err3);
                             }
                             else {
-                                album= req.params.albumId;
-                                res.render('picture', {comment: comments, picture: pic, title: "picture", album: req.params.albumId, tags: tags});
+                                album = req.params.albumId;
+                                PicturesC.getLikes(req.params.picture_id, function(err3, likes) {
+                                    res.render('picture', {like: likes, comment: comments, picture: pic, title: "Picture", album: req.params.albumId, tags: tags});
+                                });
                             }
                         });
                     }

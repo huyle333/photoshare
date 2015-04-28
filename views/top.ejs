@@ -9,6 +9,18 @@
     <h1><%= title %></h1>
 
     <div class="container">
+      <ul>
+      <%=console.log(response);%>
+        <% response.forEach(function(el, i) {%>
+          <div class="row">
+            <div class="col-md-6">
+              <li><%=response[i].email%></li>
+            </div>
+            <div class="col-md-6">
+              <li><%=response[i].score%></li>
+            </div>
+        <% }) %>
+      </ul>
       <a class="btn btn-lg btn-default btn-block" href="/home">Go home</a>
     </div>
   </body>
