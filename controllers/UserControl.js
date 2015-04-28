@@ -80,4 +80,16 @@ UserControl.getFriends = function(user_id, callback){
 	});
 }
 
+UserControl.getTop10 = function(callback){
+    UserModel.getTop10(function(err, res){
+        if (err) {
+            callback(err.message, null);
+            return;
+        }else{
+            callback(null, res);
+            return;
+        }
+    });
+}
+
 module.exports = UserControl;

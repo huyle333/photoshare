@@ -34,6 +34,17 @@ var user = function(passport) {
 	    });
 	});
 
+	router.get('/top', function(req, res) {
+	    UserController.getTop10(function(err, response) {
+	        if(!err) {
+	            res.render('top', {response: response[0], title: 'Top'});
+	        } else {
+	        	// console.log(err);
+	            res.redirect('/home');
+	        }
+	    });
+	});
+
 	router.get('/search', function(req, res) {
 	    res.render('search', {title: 'Search'});
 	});
