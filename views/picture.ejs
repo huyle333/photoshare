@@ -76,12 +76,12 @@
     <div class="container">
       <ul>
         <% comment.forEach(function(el, i) {%>
-        <% if(typeof user === 'undefined'){ %>
+        <% if(comment[i].user_id === 13){ %>
           <h6>Anonymous</h6>
         <% }else{ %>
         <h6><%=comment[i].email%></h6>
         <% } %>
-         <% if(owner === 'TRUE'){ %>
+         <% if(comment[i].user_id === owner.user_id){ %>
           <h6> Author </h6>
           <% } %>
         <h6><%=comment[i].comment_date%></h6>

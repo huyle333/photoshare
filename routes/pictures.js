@@ -6,7 +6,6 @@ var UserC = require('../models/User');
 var CommentC = require('../controllers/CommentControl');
 var TagC = require('../controllers/TagControl');
 var LikeC = require('../controllers/LikeControl');
-var owner = 'FALSE';
 
 var pictures = function(passport) {
 
@@ -25,11 +24,14 @@ var pictures = function(passport) {
                             else {
                                 album = req.params.albumId;
                                 PicturesC.getLikes(req.params.picture_id, function(err3, likes) {
-                                    if (typeof req.user === 'undefined'){
-                                        res.render('picture', {owner: owner, like: likes, comment: comments, picture: pic, title: "Picture", album: req.params.albumId, tags: tags});
-                                    }else{
-                                        res.render('picture', {owner: owner, user: req.user[0][0], like: likes, comment: comments, picture: pic, title: "Picture", album: req.params.albumId, tags: tags});
-                                    }
+                                    PicturesC.getOwner(req.params.picture_id, function(err4, callback1){
+                                        //console.log(callback1[0][0].user_id);
+                                        if (typeof req.user === 'undefined'){
+                                            res.render('picture', {owner: callback1[0][0], like: likes, comment: comments, picture: pic, title: "Picture", album: req.params.albumId, tags: tags});
+                                        }else{
+                                            res.render('picture', {owner: callback1[0][0], user: req.user[0][0], like: likes, comment: comments, picture: pic, title: "Picture", album: req.params.albumId, tags: tags});
+                                        }
+                                    });
                                 });
                             }
                         });
@@ -51,44 +53,26 @@ var pictures = function(passport) {
                         messages: req.flash('Error creating comment.')
                     });
             } else {
-                owner = "FALSE";
                 res.redirect('/pic/' + callback.picture_id, {user: commentData, title: 'Picture'});
             }
             });
         }else{
             var commentData = {picture_id: req.params.picture_id, user_id: req.user[0][0].user_id, text: req.body.text};
             PicturesC.getOwner(req.params.picture_id, function(err1, callback1){
-                if(callback1[0][0].user_id == req.user[0][0].user_id){
-                    CommentC.create(req.user[0][0], commentData, function(err, callback) {
-                    if (err) { 
-                        res.redirect(
-                            '/pic/' + callback.picture_id,  {
-                                owner: owner,
-                                user: req.res.req.user[0][0], 
-                                title: 'Picture', 
-                                messages: req.flash('Error creating comment.')
-                            });
-                    } else {
-                        owner = 'TRUE';
-                        res.redirect('/pic/' + callback.picture_id, {owner: owner, user: req.res.req.user[0][0], title: 'Picture'});
-                    }
-                    });
-                }else{
-                    CommentC.create(req.user[0][0], commentData, function(err, callback) {
-                    if (err) { 
-                        res.redirect(
-                            '/pic/' + callback.picture_id,  {
-                                owner: owner,
-                                user: req.res.req.user[0][0], 
-                                title: 'Picture', 
-                                messages: req.flash('Error creating comment.')
-                            });
-                    } else {
-                        owner = "FALSE";
-                        res.redirect('/pic/' + callback.picture_id, {owner: owner, user: req.res.req.user[0][0], title: 'Picture'});
-                    }
-                    });
+                CommentC.create(req.user[0][0], commentData, function(err, callback) {
+                console.log(callback1);
+                if (err) { 
+                    res.redirect(
+                        '/pic/' + callback.picture_id,  {
+                            owner: callback1[0][0],
+                            user: req.res.req.user[0][0], 
+                            title: 'Picture', 
+                            messages: req.flash('Error creating comment.')
+                        });
+                } else {
+                    res.redirect('/pic/' + callback.picture_id, {owner: callback1[0][0], user: req.res.req.user[0][0], title: 'Picture'});
                 }
+                });
             }); 
         }
         //var commentList = PicturesC.getComments(req.params.picture_id);

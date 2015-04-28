@@ -78,7 +78,7 @@ Pictures.getComments = function(picture_id, callback){
 }
 
 Pictures.getOwner = function(picture_id, callback){
-    db.query("SELECT u.user_id FROM Pictures p, Album a INNER JOIN Users u ON a.user_id = u.user_id WHERE p.picture_id = ?",
+    db.query("SELECT a.user_id FROM Pictures p INNER JOIN Album a ON a.album_id = p.album WHERE p.picture_id = ?",
         {replacements: [picture_id]})
     .then(function(res) {
         callback(null,res);
