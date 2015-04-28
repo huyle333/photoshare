@@ -49,7 +49,7 @@ module.exports = function(passport) {
             if(err1){
                 return done(err1);
             }
-            if(typeof user1[0][0].user_id != undefined){
+            if(typeof user1[0].user_id == null){
                 // console.log(user1[0][0].user_id);
                 console.log("Email has already been registered");
                 done(null, false);
