@@ -10,7 +10,6 @@ var LikeC = require('../controllers/LikeControl');
 var pictures = function(passport) {
 
     router.get('/:picture_id', function(req,res) {
-
         PicturesC.getPic(req.params.picture_id, function(err, pic) {
 			if (err) {}
             else {

@@ -4,6 +4,10 @@
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+
+    <!-- Jquery and Bootstrap -->
+    <script type="text/javascript" src="/javascripts/jquery.js"></script>
+    <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
   </head>
   <body>
     <h1><%= title %></h1>
@@ -45,9 +49,30 @@
     </div>
 
     <div class="container">
+        <% var likeCount = 0;%>
+        <% like.forEach(function(el, i) {%>
+          <% likeCount++;%>
+        <% }) %>
+        <a href="#likes" data-toggle="modal" data-target="#likes"><h6><%=likeCount%> Likes</h6></a>
+    </div>
+
+  <div class ="modal fade" id ="likes" role ="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <br>
+        <ul>
+        <% like.forEach(function(el, i) {%>
+        <h6><%=like[i].email%></h6>
+        <% }) %>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+    <div class="container">
       <ul>
         <% comment.forEach(function(el, i) {%>
-        <h6><%=comment[i].user_id%></h6>
+        <!-- <h6><%=comment[i].user_id%></h6> -->
         <h6><%=comment[i].email%></h6>
         <h6><%=comment[i].comment_date%></h6>
         <h4><%=comment[i].text%></h4>
@@ -55,5 +80,7 @@
         <% }) %>
       </ul>
     </div>
+
+
   </body>
 </html>
