@@ -40,14 +40,16 @@ var user = function(passport) {
 		// console.log(user);
 		var email = req.res.req.user[0][0].email;
 		// console.log(email);
-	    UserController.getTop5Tags(email, function(err, tags) {
-	        if(!err) {
-	            res.render('recommend', {user: user, tags: tags[0], title: 'Recommend'});
-	        } else {
-	        	// console.log(err);
-	            res.redirect('/home');
-	        }
-	    });
+		UserController.getTop5Pics(email, function(err, pics) {
+		    UserController.getTop5Tags(email, function(err, tags) {
+		        if(!err) {
+		            res.render('recommend', {user: user, pics: pics[0], tags: tags[0], title: 'Recommend'});
+		        } else {
+		        	// console.log(err);
+		            res.redirect('/home');
+		        }
+		    });
+		});
 	});
 
 	router.get('/top', function(req, res) {

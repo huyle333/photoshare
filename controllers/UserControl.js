@@ -104,4 +104,16 @@ UserControl.getTop5Tags = function(email, callback){
     });
 }
 
+UserControl.getTop5Pics = function(email, callback){
+    UserModel.getTop5Pics(email, function(err, res){
+        if (err) {
+            callback(err.message, null);
+            return;
+        }else{
+            callback(null, res);
+            return;
+        }
+    });
+}
+
 module.exports = UserControl;
